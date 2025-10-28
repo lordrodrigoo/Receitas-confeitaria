@@ -30,3 +30,7 @@ class RecipeMixin:
             cover=cover,
         )
         return recipe
+    
+class RecipeTestBase(TestCase, RecipeMixin):
+    def setUp(self):
+        return super().setUp()
