@@ -6,6 +6,7 @@
   --color-primary-light: #d4ecfa;
   --color-primary-light-hover: #bdd8e7;
 
+
   --color-white: #fff;
   --color-black: #000;
 
@@ -16,6 +17,7 @@
   --color-alert-light: #fff3cd;
   --color-warning-light: #fff3cd;
   --color-error-light: #f8d7da;
+  --color-pink-color: #ff91a4;
 
   --color-info-dark: #4d86c4;
   --color-debug-dark: #4d86c4;
@@ -36,7 +38,7 @@
   --color-gray-9: #191919;
 
   --font-primary: sans-serif;
-  --font-headings: 'Roboto Slab', serif;
+  --font-headings: "Roboto", sans-serif;
 
   --spacing-gutter-medium: 3rem;
   --spacing-gutter-large: 4rem;
@@ -50,4 +52,156 @@
 
 html {
   font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: var(--font-primary);
+    background-color: var(--color-gray-1);
+    color: var(--color-dark-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-headings);
+}
+
+img {
+    max-width: 100%;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+/* HEADER */
+/* Container Header */
+.container {
+    max-width: 144rem;
+    margin: 0 auto;
+    padding: 0 var(--spacing-gutter-medium);
+}
+
+.main-header-container {
+    padding-top: 0.5rem;
+    background-color: var(--color-gray-9);
+    
+
+}
+
+.logo-container {
+  width: 20rem;
+  height: 20rem; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* LOGO  */
+.main-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; 
+  display: block;
+}
+
+.main-logo {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.main-logo-text {
+  font-family: "Roboto", sans-serif;
+  color: var(--color-white);
+  text-align: center;
+  margin-bottom: var(--spacing-gutter-medium);
+
+}
+
+.fa-solid {
+  margin-right:1rem;
+  margin-left: 1rem;
+  color: var(--color-white);
+  margin-bottom: var(--spacing-gutter-medium);
+}
+
+
+.main-content {
+  padding-top: 0;
+}
+
+.main-content-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: var(--spacing-gutter-large);
+}
+
+
+
+/* GENERICS */
+.center {
+    text-align: center;
+}
+
+
+
+
+
+
+
+/* FOOTER */
+.main-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-gray-9);
+    padding: var(--spacing-gutter-large);
+}
+
+.main-footer a {
+  color: var(--color-white);
+  text-decoration: none;
+  transition: all 300ms ease-in-out;
+}
+
+.main-footer a:hover {
+  filter: brightness(0.8);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 600px) {
+  .main-content-list,
+  .form-content-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+  }
 }

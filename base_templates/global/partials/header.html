@@ -1,14 +1,20 @@
+{% load static %}
 <header class="main-header-container">
+    
     <div class="main-header container">
-        <h1>
+        <div class="logo-container">
             <a href="{% url "recipes:home" %}" class="main-logo">
-                <i class="fa-solid fa-cake-candles"></i>
-                <span class="main-logo-text">Receitas da Dália</span>
+                <img src="{% static 'global/img/logo_home.png' %}" alt="logo" class="main-logo-img">
             </a>
+        </div>
+
+        <h1 class="main-logo">
+            <i class="fa-solid fa-cake-candles"></i>
+            <span class="main-logo-text">Receitas da Dália</span>
+            <i class="fa-solid fa-cake-candles"></i>
         </h1>
-
-
-
-
+    </div>
 
 </header>
+
+
