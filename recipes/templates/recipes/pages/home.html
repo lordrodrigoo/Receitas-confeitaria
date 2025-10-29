@@ -1,11 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Hello, World!</h1>
-</body>
-</html>
+{% extends "global/base.html" %}
+
+{% block title %}Home | {% endblock title %}
+
+
+{% block content %}
+<div class="main-content main-content-list container">
+
+{% for recipe in recipes  %}
+    
+
+{% empty %}
+    <div class="center">
+        <h1>Não encontramos receitas aqui! 😢</h1>
+    </div>
+{% endfor %}
+
+</div>
+{% endblock content %}
+
+{% include "recipes/partials/footer.html" %}

@@ -1,7 +1,9 @@
-from django.urls import path
-from django.urls import include
 
+from django.urls import path
+from .views.site import RecipeHomeView
 
 app_name = 'recipes'
 
-urlpatterns = []
+urlpatterns = [
+	path('', RecipeHomeView.as_view(), name='home'),
+]

@@ -1,5 +1,20 @@
-{% extends "global/base.html" %}
+{% load static %}
 
-{% block title %}Home | {% endblock title %}
+<!DOCTYPE html>
+<html lang="pt-br">
 
-{% block content %}
+<head>
+    {% include "global/partials/head.html" %}
+    <title>{% block title %}{% endblock %} Receitas da Dália </title>
+</head>
+
+<body>
+    {% include "global/partials/header.html" %}
+
+    <main class="main-content-container">
+        {% block content %}{% endblock content %}
+        
+    </main>
+
+    {% include "global/partials/footer.html" %}
+</body>
