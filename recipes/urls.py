@@ -1,9 +1,16 @@
-
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
-from .views.site import RecipeHomeView
+from .views.site import RecipeHomeView, RecipeDetailView
+
+import debug_toolbar
 
 app_name = 'recipes'
 
 urlpatterns = [
 	path('', RecipeHomeView.as_view(), name='home'),
-]
+    path('recipe/<int:pk>/', RecipeDetailView.as_view(), name='recipe'),
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

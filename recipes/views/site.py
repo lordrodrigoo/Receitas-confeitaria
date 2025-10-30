@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from recipes.models import Recipe
+
 
 
 # Create your views here.
@@ -20,3 +21,13 @@ class RecipeListViewBase(ListView):
 class RecipeHomeView(RecipeListViewBase):
     template_name = 'recipes/pages/home.html'
 
+
+class RecipeDetailView(DetailView):
+    model = Recipe
+    context_object_name = 'recipe'
+    template_name = 'recipes/pages/recipe_detail.html'
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        qs = qs.filter(is_published=True)
+        return qs

@@ -1,6 +1,14 @@
 from django.db import models
+from django.urls import reverse
+from PIL import Image
+import os
+from django.conf import settings
 
+class Category(models.Model):
+    name = models.CharField(max_length=65)
 
+    def __str__(self):
+        return self.name
 
 class Recipe(models.Model):
     PREPARATION_TIME_UNIT_CHOICES = [
@@ -43,8 +51,41 @@ class Recipe(models.Model):
     is_published = models.BooleanField(default=False, verbose_name='Publicado?')
     cover = models.ImageField(upload_to='recipes/covers/%Y/%m/%d/', blank=True, default='',)
     
+    category = models.ForeignKey(
+        Category, on_delete=models.SET_NULL,
+        null=True, blank=True,
+        verbose_name='Categoria',
+        default=None,
+    )
+
+    def get_absolute_url(self):
+        return reverse('recipes:recipe', args=(self.id,))
+    
+    @staticmethod
+    def resize_image(image, new_width=800):
+        image_full_path = os.path.join(settings.MEDIA_ROOT, image.name)
+        image_pillow = Image.open(image_full_path)
+        original_width, original_height = image_pillow.size
+
+        if original_width < new_width:
+            image_pillow.close()
+            return
+        
+        new_height = round((new_width * original_height) / original_width)
+
+        new_image = image_pillow.resize((new_width, new_height), Image.LANCZOS)
+        
+        new_image.save(
+            image_full_path,
+            optimize=True,
+            quality=50,
+        )
+
     class Meta:
         verbose_name = "Receita"
         verbose_name_plural = "Receitas"
+        ordering = ['-id']
+
     def __str__(self):
         return self.title
+    

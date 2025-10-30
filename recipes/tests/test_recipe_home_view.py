@@ -25,3 +25,16 @@ class RecipeHomeViewTest(RecipeTestBase):
                 Recipe.objects.all().delete() 
                 response = self.client.get(reverse('recipes:home'))
                 self.assertContains(response, 'Não encontramos receitas aqui! 😢')
+
+        def test_logo_link_points_to_home(self):
+                response = self.client.get(reverse('recipes:home'))
+                home_url = reverse('recipes:home')
+                self.assertContains(response, f'href="{home_url}"')
+
+        def test_recipe_detail_url_returns_200(self):
+                recipe = self.make_recipe()
+                url = reverse('recipes:recipe', kwargs={'pk': recipe.pk})
+                response = self.client.get(url)
+                assert response.status_code == 200
+
+                
