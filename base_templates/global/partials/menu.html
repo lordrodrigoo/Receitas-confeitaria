@@ -1,0 +1,30 @@
+<button class="button-show-menu button-show-menu-visible">
+    <i class="fas fa-bars"></i>
+    <span class="hidden-text">Mostrar Menu</span>
+</button>
+
+<div class="menu-container menu-hidden">
+    <button class="button-close-menu button-close-menu-visible">
+    <i class="fas fa-times-circle"></i>
+    <span class="hidden-text">Fechar menu</span>
+</button>
+
+    <div class="menu-content">
+        <nav class="menu-nav">
+            <a href="{% url "recipes:home" %}">Inicio</a>
+            
+          {% if user.is_authenticated %}
+            <a href="{% url "authors:dashboard_recipe_new" %}">Nova receita</a>
+            <a href="{% url "authors:dashboard" %}">Painel de controle</a>
+            <a class="authors-logout-link" href="{% url "authors:logout" %}">Sair</a>
+            {% include "authors/partials/form_logout.html" %}
+          {% else %}
+            <a href="{% url "authors:login" %}">Login</a>
+            <a href="{% url "authors:register" %}">Registre-se</a>
+
+          
+          {% endif %}    
+        </nav>
+    </div>
+
+</div>

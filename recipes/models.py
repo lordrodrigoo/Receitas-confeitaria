@@ -6,9 +6,14 @@ from django.conf import settings
 
 class Category(models.Model):
     name = models.CharField(max_length=65)
-
+    
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "Categoria"
+        verbose_name_plural = "Categorias"
+        ordering = ['name']
 
 class Recipe(models.Model):
     PREPARATION_TIME_UNIT_CHOICES = [

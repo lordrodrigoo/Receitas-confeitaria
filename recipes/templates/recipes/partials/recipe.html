@@ -14,4 +14,11 @@
     </h2>
 </div>
 
+{% comment %} CATEGORY {% endcomment %}
+
+    {% if recipe.category is not None %}
+        <span>
+            {{ recipe.category.name }}
+        </span>
+    {% endif %}
 </div>

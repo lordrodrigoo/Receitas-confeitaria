@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView
 from recipes.models import Recipe
 from django.db.models import Q
 from django.http import Http404
+from django.utils.translation import gettext as _
 
 
 
@@ -81,4 +82,27 @@ class RecipeListViewSearch(RecipeListViewBase):
             'search_term': search_term,
             'additional_url_query': f'&q={search_term}',
         })
-        return ctx    
+        return ctx
+    
+class RecipeListViewCategory(RecipeListViewBase):
+    template_name = 'recipes/pages/category.html'
+
+    def get_context_data(self, *args, **kwargs):
+        ctx =  super().get_context_data(*args, **kwargs)
+
+        category_translation = _('category')
+
+        ctx.update({
+            'title': f'{ctx.get("recipes")[0].category.name} - {category_translation} |',
+        })
+        return ctx
+    
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        qs = qs.filter(
+            category__id=self.kwargs.get('category_id')
+        )
+        if not qs:
+            raise Http404()
+
+        return qs
