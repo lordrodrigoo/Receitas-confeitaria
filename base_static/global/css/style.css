@@ -96,6 +96,115 @@ a {
   overflow: hidden;
 }
 
+
+/* MENU  */
+.menu-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1.6rem;
+}
+
+.menu-nav {
+  display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+}
+
+.menu-nav a {
+    font-size: 1.6rem;
+    color: var(--color-white);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.8rem 1.2rem;
+}
+
+.menu-nav a:hover {
+    color: var(--color-primary-hover);
+    transition: color 0.3s ease;
+}
+
+.button-close-menu {
+    display: none;
+}
+
+.button-show-menu {
+    display: none;
+}
+
+/* MENU LEFT MOBILE */
+@media screen and (max-width: 600px) {
+    
+
+
+    .button-show-menu {
+        display: flex;
+        display: visible;
+        position: fixed;
+        top: 10rem;
+        left: 20px;
+        background: none;
+        border: none;
+        color: var(--color-primary-hover);
+        font-size: 3rem;
+        cursor: pointer;
+    }
+
+    .button-close-menu {
+        display: flex;
+        display: visible;
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        background: none;
+        border: none;
+        color: var(--color-primary-hover);
+        font-size: 3rem;
+        cursor: pointer;
+    }
+
+    .menu-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2rem;
+        gap: 1.6rem;
+    }
+
+    .menu-nav a:hover {
+        color: var(--color-primary-hover);
+        transition: color 0.3s ease;
+    }
+
+   
+    .menu-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    max-width: 260px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out, width 0.3s;
+    z-index: 1000;
+    overflow-x: hidden;
+  }
+  .menu-container.menu-visible {
+      transform: translateX(0);
+      width: 260px;
+  }
+  .menu-container.menu-hidden {
+      transform: translateX(-100%);
+      width: 0;
+  }
+    
+}
+
+
+
 /* LOGO  */
 .main-logo-img {
   width: 100%;
@@ -193,9 +302,6 @@ a {
 .center {
     text-align: center;
 }
-
-
-
 
 
 
