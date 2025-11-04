@@ -1,0 +1,27 @@
+FROM python:3.12-slim
+
+# Prevent Python from writing .pyc files and buffer stdout/stderr
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Install build dependencies required by some packages (psycopg, Pillow, etc.)
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends \
+	   build-essential gcc libpq-dev libjpeg-dev zlib1g-dev \
+	&& rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy requirements and install first so Docker layer is cached when code changes
+COPY ../requirements.txt /app/requirements.txt
+RUN pip install --upgrade pip \
+	&& pip install --no-cache-dir -r /app/requirements.txt
+
+# Copy project files
+COPY .. /app
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 8000
+
+ENTRYPOINT ["/entrypoint.sh"]
