@@ -1,19 +1,19 @@
 services:
-#  Uncomment the following lines to enable PostgreSQL database service
-#   db:
-#     image: postgres:17
-#     ports:
-#       - "5432:5432"
-#     volumes:
-#       - postgres_data:/var/lib/postgresql/data
-#     env_file:
-#       - .env
+ #Uncomment the following lines to enable PostgreSQL database service
+  db:
+    image: postgres:17
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
 
   django-web:
     build: .
     container_name: django-docker
-    # depends_on:
-    #   - db
+    depends_on:
+      - db
     volumes:
       - ./static:/app/static
       - ./media:/app/media
