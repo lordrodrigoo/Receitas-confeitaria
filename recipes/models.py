@@ -3,6 +3,12 @@ from django.urls import reverse
 from PIL import Image
 import os
 from django.conf import settings
+from django.contrib.auth.models import User
+from django.utils.text import slugify
+import string
+from random import SystemRandom
+from collections import defaultdict
+from django.core.exceptions import ValidationError
 
 class Category(models.Model):
     name = models.CharField(max_length=65)
@@ -63,6 +69,9 @@ class Recipe(models.Model):
         default=None,
     )
 
+    author = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, verbose_name='Autor')
+
     def get_absolute_url(self):
         return reverse('recipes:recipe', args=(self.id,))
     
@@ -85,6 +94,41 @@ class Recipe(models.Model):
             optimize=True,
             quality=50,
         )
+
+    def save(self, *args, **kwargs):
+
+        if not self.slug:
+            if not self.slug:
+                rand_letters = ''.join(SystemRandom().choices(
+                    string.ascii_letters + string.digits,
+                    k=5
+                    )
+            )
+            self.slug = slugify(f'{self.title}-{rand_letters}')
+            slug = f'{slugify(self.title)}'
+
+        saved = super().save(*args, **kwargs)
+
+        if self.cover:
+            try:
+                self.resize_image(self.cover, 840)
+            except FileNotFoundError:
+                ...
+        return saved
+    
+    def clean(self, *args, **kwargs):
+        error_messages = defaultdict(list)
+
+        recipe_from_db = Recipe.objects.filter(
+            title__iexact=self.title,
+        ).first()
+        
+        if recipe_from_db:
+            if recipe_from_db.pk != self.pk:
+                error_messages['title'].append('Já existe uma receita com esse título.')
+            
+        if error_messages:
+            raise ValidationError(error_messages)
 
     class Meta:
         verbose_name = "Receita"
