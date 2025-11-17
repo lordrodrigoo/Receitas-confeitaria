@@ -1,7 +1,12 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from .views.site import RecipeHomeView,RecipeDetail, RecipeListViewSearch, RecipeAboutView
+from .views.site import (
+    RecipeHomeView,RecipeDetail,
+    RecipeListViewSearch,
+    RecipeAboutView,
+    RecipeListViewCategory,
+)
 
 import debug_toolbar
 
@@ -13,6 +18,7 @@ urlpatterns = [
 	path('recipes/search/', RecipeListViewSearch.as_view(), name='search'),
 
 	path('recipes/category/<int:category_id>/', RecipeListViewSearch.as_view(), name='category'),
+    path('recipes/category/<int:category_id>/', RecipeListViewCategory.as_view(), name='category'),
          
     path('recipe/<int:pk>/', RecipeDetail.as_view(), name='recipe'),
 

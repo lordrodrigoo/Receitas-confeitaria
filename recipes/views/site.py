@@ -5,13 +5,13 @@ from recipes.models import Recipe
 from django.db.models import Q
 from django.http import Http404
 from django.utils.translation import gettext as _
+from utils.pagination import make_pagination
 
 
 
 
 # Create your views here.
-
-app_name = 'recipes'
+PER_PAGE = 9
 
 
 
@@ -20,6 +20,7 @@ class RecipeListViewBase(ListView):
     context_object_name = 'recipes'
     template_name = 'recipes/pages/home.html'
     ordering = ['-id']
+    
 
     def get_queryset(self, *args, **kwargs):
         qs = super().get_queryset(*args, **kwargs)
@@ -28,9 +29,17 @@ class RecipeListViewBase(ListView):
 
     def get_context_data(self, *args, **kwargs):
         ctx = super().get_context_data(*args, **kwargs)
-        ctx.update({
-            'page_title': 'Home | ',
-        })
+        page_obj, pagination_range = make_pagination(
+            self.request,
+            ctx.get('recipes'),
+            PER_PAGE,
+        )
+        ctx.update(
+            {
+                'recipes': page_obj,
+                'pagination_range': pagination_range,
+            }
+        )
         return ctx
 
 
