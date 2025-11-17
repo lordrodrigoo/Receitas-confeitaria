@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
+from django.views.generic import TemplateView
 from recipes.models import Recipe
 from django.db.models import Q
 from django.http import Http404
@@ -53,6 +54,12 @@ class RecipeDetail(DetailView):
             'is_detail_page': True,
         })
         return ctx
+    
+
+
+class RecipeAboutView(TemplateView):
+    template_name = 'recipes/pages/about.html'
+
     
 
 class RecipeListViewSearch(RecipeListViewBase):

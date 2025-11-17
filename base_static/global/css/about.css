@@ -1,0 +1,27 @@
+.about-container {
+    background-image: url(../img/svg/bg-about.jpg);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    margin: 2rem auto;
+}
+
+.about-description {
+    font-size: 1.8rem;
+    color: var(--color-gray-7);
+    line-height: 1.5;
+    margin-top: 1rem;
+}
+
+
+
+.about-differentials {
+    list-style: none;
+    padding-left: 0;
+    font-size: 1.8rem;
+}

@@ -1,30 +1,8 @@
-/* MENU  */
+
+
+/* MENU  -MOBILE */
 .menu-content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 1.6rem;
-}
-
-.menu-nav {
-  display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 24px;
-}
-
-.menu-nav a {
-    font-size: 1.6rem;
-    color: var(--color-white);
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.8rem 1.2rem;
-}
-
-.menu-nav a:hover {
-    color: var(--color-primary-hover);
-    transition: color 0.3s ease;
+    display: none;
 }
 
 .button-close-menu {
@@ -35,15 +13,96 @@
     display: none;
 }
 
+
+.logo-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.logo {
+  width: 50rem;
+  height: 40rem;
+  display: block;
+  object-fit: contain;
+  overflow: hidden;
+}  
+
+
+
+.fa-brands {
+  font-size: 4.0rem;
+}
+
+.icon-ifood {
+    width: 5.2rem;
+    height: 5.2rem;
+}
+
+
+.flex-left,
+.logo-main,
+.flex-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+
+
 /* MENU LEFT MOBILE */
 @media screen and (max-width: 600px) {
+    .flex-left,
+    .flex-right {
+        display: none;
+    }
+
+    .logo {
+        margin-left: 5rem;
+        width: 30rem;
+        height: 30rem;
+        display: block;
+        object-fit: contain;
+    }
+    
+    .menu-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1.6rem;
+    }
+
+    .menu-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    }
+
+    .menu-nav a {
+    font-size: 1.6rem;
+    color: var(--color-white);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.8rem 1.2rem;
+    }
+
+    .menu-nav a:hover {
+    color: var(--color-primary-hover);
+    transition: color 0.3s ease;
+    }
+
+
     
     .button-show-menu {
         display: flex;
         display: visible;
         position: absolute;
-        top: 10rem;
-        left: 20px;
+        padding-bottom: 12rem;
+        left: 2rem;
         background: none;
         border: none;
         color: var(--color-primary-hover);
@@ -76,6 +135,8 @@
         transition: color 0.3s ease;
     }
 
+    
+
    
     .menu-container {
     position: fixed;
@@ -101,3 +162,7 @@
   }
     
 }
+
+
+
+

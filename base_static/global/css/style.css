@@ -1,3 +1,5 @@
+
+
 :root {
   --color-primary: #269fe6;
   --color-primary-hover: #2086c2;
@@ -74,60 +76,32 @@ a {
     text-decoration: none;
 }
 
-/* HEADER */
-/* Container Header */
 .container {
     max-width: 144rem;
     margin: 0 auto;
     padding: 0 var(--spacing-gutter-medium);
 }
 
-.main-header-container {
-    background-color: var(--color-gray-9);
-}
-
-
-/* LOGO  */
-.logo-container {
-  width: 20rem;
-  height: 16rem; 
+/* HEADER */
+/* Container Header */
+.header-container {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  overflow: hidden;
-}
-
-.main-logo-img {
+  justify-content: space-between;
   width: 100%;
-  height: 100%;
-  object-fit: contain; 
-  display: block;
 }
 
-.main-logo {
+.main-header-container {
+  padding-top: var(--spacing-gutter-small);
+  background-color: var(--color-gray-9);
+  max-height: 25rem;
   display: flex;
-  flex-flow: row nowrap;
   align-items: center;
-  justify-content: center;
-  width: fit-content;
+  justify-content: space-between;
   margin: 0 auto;
+  
 }
 
-.main-logo-text {
-  font-family: "Roboto", sans-serif;
-  color: var(--color-white);
-  text-align: center;
-  margin-bottom: var(--spacing-gutter-small);
-
-}
-
-.fa-solid {
-  margin-right:1rem;
-  margin-left: 1rem;
-  color: var(--color-white);
-  margin-bottom: var(--spacing-gutter-small);
-}
 
 
 /* SEARCH */
@@ -193,7 +167,7 @@ a {
 }
 
 /* RECIPE */
-recipe {
+.recipe {
   background: var(--color-white);
   box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.2);
   transform: scale(1);
@@ -344,6 +318,38 @@ recipe {
 
 
 
+/* MENU OPTIONS  */
+.menu-options {
+    background: var(--color-gray-9);
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    
+}
+
+.menu-options a {
+    font-size: 2rem;
+    color: var(--color-white);
+    text-decoration: none;
+    padding: 0.8rem 1.2rem;
+}
+
+.menu-options a:hover {
+    color: var(--color-primary-hover);
+    transition: color 0.3s ease;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 /* FOOTER */
 .main-footer {
     display: flex;
@@ -367,32 +373,15 @@ recipe {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @media (max-width: 600px) {
   .main-content-list,
   .form-content-grid {
     grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
   }
+
+  .menu-options {
+    display: none;
+  }
+
+
 }
