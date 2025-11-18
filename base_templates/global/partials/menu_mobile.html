@@ -9,11 +9,15 @@
 <div class="menu-container menu-hidden">
     
     <nav class="menu-nav menu-content">
-        <button class="button-close-menu" aria-label="Fechar menu">
-            <i class="fas fa-times"></i>
-        </button>
-        <a href="">Inicio</a>
-        <a href="{% url "recipes:about" %}">Sobre</a>
-        <a href="">Sair</a>
-    </nav>
+    <button class="button-close-menu" aria-label="Fechar menu">
+        <i class="fas fa-times"></i>
+    </button>
+    <a href="{% url 'recipes:home' %}">Início</a>
+    <a href="{% url 'recipes:about' %}">Sobre</a>
+    <a href="">Painel de Controle</a>
+            <span class="menu-categories-title">Categorias</span>
+            {% for category in categories %}
+                <a href="{% url 'recipes:category' category.id %}">{{ category.name }}</a>
+            {% endfor %}
+</nav>
 </div>

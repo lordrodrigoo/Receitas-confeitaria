@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.views.generic import TemplateView
-from recipes.models import Recipe
+from recipes.models import Recipe, Category
+from django.views.generic import TemplateView
+
 from django.db.models import Q
 from django.http import Http404
 from django.utils.translation import gettext as _
@@ -46,6 +48,11 @@ class RecipeListViewBase(ListView):
 class RecipeHomeView(RecipeListViewBase):
     template_name = 'recipes/pages/home.html'
 
+    def get_context_data(self, *args, **kwargs):
+        ctx = super().get_context_data(*args, **kwargs)
+        ctx['categories'] = Category.objects.all()
+        return ctx
+
 
 class RecipeDetail(DetailView):
     model = Recipe
@@ -61,6 +68,7 @@ class RecipeDetail(DetailView):
         ctx =  super().get_context_data(*args, **kwargs)
         ctx.update({
             'is_detail_page': True,
+            'categories': Category.objects.all(),
         })
         return ctx
     
@@ -100,6 +108,15 @@ class RecipeListViewSearch(RecipeListViewBase):
         })
         return ctx
     
+
+class CategoryListView(TemplateView):
+    template_name = 'recipes/pages/category.html'
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['categories'] = Category.objects.all()
+        return ctx
+    
 class RecipeListViewCategory(RecipeListViewBase):
     template_name = 'recipes/pages/category.html'
 
@@ -109,7 +126,8 @@ class RecipeListViewCategory(RecipeListViewBase):
         category_translation = _('category')
 
         ctx.update({
-            'title': f'{ctx.get("recipes")[0].category.name} - {category_translation} |',
+            'title': ctx.get("recipes")[0].category.name if ctx.get("recipes") else "Categoria",
+            'categories': Category.objects.all(),
         })
         return ctx
     

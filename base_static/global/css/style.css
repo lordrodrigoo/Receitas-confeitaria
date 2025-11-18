@@ -1,5 +1,4 @@
 
-
 :root {
   --color-primary: #269fe6;
   --color-primary-hover: #2086c2;
@@ -92,6 +91,7 @@ a {
 }
 
 .main-header-container {
+  z-index: 10;
   padding-top: var(--spacing-gutter-small);
   background-color: var(--color-gray-9);
   max-height: 25rem;
@@ -323,7 +323,7 @@ a {
     background: var(--color-gray-9);
     display: flex;
     justify-content: center;
-    gap: 3rem;
+    gap: 6rem;
     
 }
 
@@ -331,7 +331,8 @@ a {
     font-size: 2rem;
     color: var(--color-white);
     text-decoration: none;
-    padding: 0.8rem 1.2rem;
+    padding-bottom: 1.8rem;
+    
 }
 
 .menu-options a:hover {

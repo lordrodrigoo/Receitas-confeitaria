@@ -1,17 +1,18 @@
 {% extends "global/base.html" %}
 
-{% block title %}{{title}}{% endblock title %}
+{% block title %}{{ title|default:'Receitas da Categoria' }}{% endblock title %}
 
 {% block content %}
-<div class="main-content main-content-list container">
-
+<div class="main-content container">
+  <h2 class="categories-title">{{ title|default:'Receitas da Categoria' }}</h2>
+  <ul class="categories-list">
     {% for recipe in recipes %}
-        {% include "recipes/partials/recipe.html" %}
-    
+      <li>
+        <a href="{{ recipe.get_absolute_url }}">{{ recipe.title }}</a>
+      </li>
+    {% empty %}
+      <li>Nenhuma receita encontrada nesta categoria.</li>
     {% endfor %}
-
-
+  </ul>
 </div>
 {% endblock content %}
-
-{% include "recipes/partials/footer.html" %}
