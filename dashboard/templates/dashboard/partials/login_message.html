@@ -1,0 +1,12 @@
+{% if request.user.is_authenticated %}
+    <div class="login-message">Vocẽ esta logado como:
+        <strong>{{ request.user.username }}.</strong>
+        <a href="{% url "authors:dashboard" %}">Veja suas receitas</a>,
+        <a href="{% url "authors:dashboard_recipe_new" %}">Crie uma nova receita</a>
+        
+    
+    </div>
+
+
+
+{% endif %}

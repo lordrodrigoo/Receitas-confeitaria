@@ -1,0 +1,59 @@
+{% extends "global/base.html" %}
+{% block title %}Dashboard Login | {% endblock title %}
+
+{% block content %}
+   <div class="main-content center container">
+        <h2>Login</h2>
+        {% include "dashboard/partials/login_message.html" %}
+  </div>
+
+  {% include "global/partials/messages.html" %}
+
+  {% if not user.is_authenticated %}
+    {% include "global/partials/form.html" %}
+  {% endif %}
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} {% extends "dashboard/base.html" %}
+{% block title %}Login do Painel | {% endblock title %}
+
+    {% block content %}
+    <section class="dashboard-login-container">
+        <h1>Login do Painel</h1>
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div>
+                <label for="id_username">Usuário:</label>
+                {{ form.username }}
+            </div>
+            <div>
+                <label for="id_password">Senha:</label>
+                {{ form.password }}
+            </div>
+            <button type="submit">Entrar</button>
+        </form>
+    </section>
+    {% endblock content %} {% endcomment %}

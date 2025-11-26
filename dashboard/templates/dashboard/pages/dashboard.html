@@ -1,0 +1,30 @@
+{% extends "global/base.html" %}
+
+{% block title %}Dashboard ({{ user.username }}) {% endblock title %}
+
+{% block content %}
+   <div class="main-content center container">
+        <h2>Painel de controle ({{ user.username }})</h2>
+
+        {% include "dashboard/partials/login_message.html" %}
+        {% include "global/partials/messages.html" %}
+
+        <div class="dashboard-container">
+          <h3>Suas Receitas</h3>
+        
+     
+       <ul>
+          {% for recipe in recipes %}
+          <li>
+               
+          </li>
+          
+          
+          
+          {% endfor %}
+       </ul>
+          
+       </div>  
+
+
+   </div>

@@ -14,7 +14,7 @@
     </button>
     <a href="{% url 'recipes:home' %}">Início</a>
     <a href="{% url 'recipes:about' %}">Sobre</a>
-    <a href="">Painel de Controle</a>
+    <a href="{% url 'dashboard:dashboard' %}">Painel de Controle</a>
             <span class="menu-categories-title">Categorias</span>
             {% for category in categories %}
                 <a href="{% url 'recipes:category' category.id %}">{{ category.name }}</a>

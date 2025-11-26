@@ -12,6 +12,7 @@ INSTALLED_APPS = [
 
     'recipes',
     'authors',
+    'dashboard',
     'rest_framework',
 ]
 

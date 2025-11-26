@@ -1,0 +1,18 @@
+{% extends "global/base.html" %}
+
+{% block title %}Painel Receitas |{% endblock title%}
+
+{% block content %}
+  <div class="main-content center container">
+    <h2>Painel de Receitas</h2>
+    {% include "global/partials/messages.html" %}
+    {% include "dashboard/partials/login_message.html" %}
+
+    <div class="left">
+      {% include "global/partials/form.html" %}
+
+    </div>
+
+      
+  </div>
+{% endblock %}
