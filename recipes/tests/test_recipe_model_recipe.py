@@ -24,6 +24,8 @@ class RecipeModelRecipeTest(RecipeTestBase):
         preparation_steps_is_html=False,
         is_published=False,
         cover='',
+        category=None, 
+        author=None,
 )
         recipe.full_clean()  # This will validate the model fields
         recipe.save()

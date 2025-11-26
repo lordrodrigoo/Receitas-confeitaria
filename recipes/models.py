@@ -70,7 +70,7 @@ class Recipe(models.Model):
     )
 
     author = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True, verbose_name='Autor')
+        User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Autor')
 
     def get_absolute_url(self):
         return reverse('recipes:recipe', args=(self.id,))

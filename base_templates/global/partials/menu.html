@@ -1,14 +1,16 @@
 <div class="menu-options">
   <div class="dropdown">
-    <a href="{% url 'recipes:categories' %}">Categorias</a>
-    <ul class="dropdown-menu">
-      {% for category in categories %}
+    <a href="{% url 'recipes:recipe-categories' %}">Categorias</a>
+    {% if categories %}
+      <ul class="dropdown-menu">
+        {% for category in categories %}
         <li>
           <a href="{% url 'recipes:category' category.id %}">{{ category.name }}</a>
         </li>
-      {% endfor %}
-    </ul>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    </div>
+    <a href="{% url 'recipes:about' %}">Sobre</a>
+    <a href="#">Painel de controle</a>
   </div>
-  <a href="{% url 'recipes:about' %}">Sobre</a>
-  <a href="#">Painel de controle</a>
-</div>

@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from recipes.models import Recipe
-
+from recipes.models import Recipe, Category
 
 
 class RecipeSerializer(serializers.ModelSerializer):
@@ -50,3 +49,8 @@ class RecipeSerializer(serializers.ModelSerializer):
     
     def any_method_name(self, recipe):
         return f'{recipe.preparation_time} {recipe.preparation_time_unit}'
+    
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'

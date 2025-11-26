@@ -1,0 +1,21 @@
+@url = http://127.0.0.1:8000
+@searchTerm = bolo
+
+GET {{url}}/recipes/api/v1/
+Accept: application/json
+###
+
+GET {{url}}/recipes/api/v1/?search={{searchTerm}}
+Accept: application/json
+###
+
+# Pagination Test
+@page=1
+GET {{url}}/recipes/api/v1/?page={{page}}
+Accept: application/json
+###
+
+# Categories 
+GET {{url}}/recipes/api/v1/?categories
+Accept: application/json
+###

@@ -8,13 +8,12 @@ from django.db.models import Q
 from django.http import Http404
 from django.utils.translation import gettext as _
 from utils.pagination import make_pagination
-
+import os
 
 
 
 # Create your views here.
-PER_PAGE = 9
-
+PER_PAGE = int(os.environ.get('PER_PAGE'))
 
 
 class RecipeListViewBase(ListView):
@@ -27,6 +26,7 @@ class RecipeListViewBase(ListView):
     def get_queryset(self, *args, **kwargs):
         qs = super().get_queryset(*args, **kwargs)
         qs = qs.filter(is_published=True)
+        qs = qs.select_related('author', 'category')
         return qs
 
     def get_context_data(self, *args, **kwargs):
@@ -77,6 +77,10 @@ class RecipeDetail(DetailView):
 class RecipeAboutView(TemplateView):
     template_name = 'recipes/pages/about.html'
 
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['categories'] = Category.objects.all()
+        return ctx
     
 
 class RecipeListViewSearch(RecipeListViewBase):
@@ -109,8 +113,8 @@ class RecipeListViewSearch(RecipeListViewBase):
         return ctx
     
 
-class CategoryListView(TemplateView):
-    template_name = 'recipes/pages/category.html'
+class RecipeCategoriesListView(TemplateView):
+    template_name = 'recipes/pages/categories.html'
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
@@ -122,8 +126,7 @@ class RecipeListViewCategory(RecipeListViewBase):
 
     def get_context_data(self, *args, **kwargs):
         ctx =  super().get_context_data(*args, **kwargs)
-
-        category_translation = _('category')
+        category_id = self.kwargs.get('category_id')
 
         ctx.update({
             'title': ctx.get("recipes")[0].category.name if ctx.get("recipes") else "Categoria",

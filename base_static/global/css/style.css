@@ -202,6 +202,8 @@ a {
 
 .recipe-author {
   padding: 0 var(--spacing-gutter-medium);
+  
+  
 }
 
 .recipe-content {
@@ -214,13 +216,18 @@ a {
   margin-right: 1rem;
   font-style: italic;
   font-size: 1.4rem;
+  padding-bottom: 1rem;
 }
 
 .recipe-author a {
   color: var(--color-primary);
   transition: all 300ms ease-in-out;
   text-decoration: none;
+  margin-bottom: 2rem;
+  
 }
+
+
 
 .recipe-author a:hover {
   color: var(--color-primary-dark);
@@ -339,11 +346,6 @@ a {
     color: var(--color-primary-hover);
     transition: color 0.3s ease;
 }
-
-
-
-
-
 
 
 
