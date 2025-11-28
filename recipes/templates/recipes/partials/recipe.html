@@ -20,11 +20,15 @@
         <span class="recipe-author-item">
             <a href="{% url 'authors:public-profile' recipe.author.profile.id %}">
                 <i class="fas fa-user"></i>
-                {{ recipe.author.first_name }} {{ recipe.author.last_name }}
+                {{ recipe.author.get_full_name|default:recipe.author.username }}
             </a>
         </span>
+    {% elif recipe.author %}
+        <span class="recipe-author-item">
+            <i class="fas fa-user"></i>
+            {{ recipe.author.get_full_name|default:recipe.author.username }}
+        </span>
     {% endif %}
-    
 
     <span class="recipe-author-item">
         <i class="fas fa-calendar-alt"></i>

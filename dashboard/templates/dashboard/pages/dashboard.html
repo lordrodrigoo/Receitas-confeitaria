@@ -4,27 +4,84 @@
 
 {% block content %}
    <div class="main-content center container">
+      {% include "dashboard/partials/login_message.html" %}
+      {% include "global/partials/messages.html" %}
         <h2>Painel de controle ({{ user.username }})</h2>
 
-        {% include "dashboard/partials/login_message.html" %}
-        {% include "global/partials/messages.html" %}
 
-        <div class="dashboard-container">
-          <h3>Suas Receitas</h3>
-        
-     
-       <ul>
-          {% for recipe in recipes %}
-          <li>
+            <div class="dashboard-container">
+               <h3>Suas Receitas</h3>
+               <br>
+               <ul>
+                  {% for recipe in recipes %}
+                     <li>
+                        <a href="{% url "dashboard:dashboard_recipe_edit" recipe.id %}">
+                           {{ recipe.title }}
+                        </a>
+                        <form class="inline-form form-delete"
+                                 action="{% url "dashboard:dashboard_recipe_delete" %}"
+                                 method="post">
+                           {% csrf_token %}   
+                           <input type="hidden" name="id" value="{{ recipe.id }}" />
+                           <button class="plaintext-button" type="submit">✖️</button>
+                        </form>
+                     </li>
+                     <br>
+                  {% empty %}
+                     <li>
+                        <p>Você ainda não tem receitas cadastradas.</p>
+                     </li>
+                  {% endfor %}
+               </ul>
+               <hr>
                
-          </li>
-          
-          
-          
-          {% endfor %}
-       </ul>
-          
-       </div>  
+               <h3>Categorias</h3>
+               <br>
+               <ul>
+                  {% for category in categories %}
+                     <li>
+                        {{ category.name }}
+                        <form class="inline-form form-delete-category" action="{% url 'dashboard:dashboard_category_delete' %}" method="post" style="display:inline;">
+                           {% csrf_token %}
+                           <input type="hidden" name="category_id" value="{{ category.id }}">
+                           <button class="plaintext-button" type="submit" onclick="return confirm('Tem certeza que deseja excluir esta categoria?');">✖️</button>
+                        </form>
+                     </li>
+                  {% empty %}
+                     <li>Nenhuma categoria cadastrada.</li>
+                  {% endfor %}
+               </ul>
+               <hr>
+               <h3>Usuários</h3>
+               <br>
+               <ul>
+                  {% for user in users %}
+                     <li>
+                        {{ user.get_full_name|default:user.username }} ({{ user.username }})
+                        <form class="inline-form form-delete-user" action="{% url 'dashboard:dashboard_user_delete' %}" method="post" style="display:inline;">
+                           {% csrf_token %}
+                           <input type="hidden" name="user_id" value="{{ user.id }}">
+                           <button class="plaintext-button" type="submit" onclick="return confirm('Tem certeza que deseja excluir este usuário?');">✖️</button>
+                        </form>
+                     </li>
+                  {% empty %}
+                     <li>Nenhum usuário comum cadastrado.</li>
+                  {% endfor %}
+               </ul>
+            </div>
 
 
    </div>
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+      const deleteForms = document.querySelectorAll('.form-delete');
+      deleteForms.forEach(function(form) {
+         form.addEventListener('submit', function(e) {
+            if (!confirm('Você tem certeza que deseja deletar esta receita?')) {
+               e.preventDefault();
+            }
+         });
+      });
+   });
+</script>
+{% endblock %}

@@ -139,7 +139,4 @@ class RecipeListViewCategory(RecipeListViewBase):
         qs = qs.filter(
             category__id=self.kwargs.get('category_id')
         )
-        if not qs:
-            raise Http404()
-
         return qs

@@ -17,17 +17,14 @@
             {% endif %}
 
             {{ field.errors }}
+            {% if field.name == 'cover' and field.value.url %}
+              <div class="form-image-preview">
+                <img src="{{field.value.url}}" alt="Capa para {{recipe.title}}">
+              </div>
+            {% endif %}
           </div>
-
-          {% if field.name == 'cover' and field.value.url %}
-            <div class="span-2">
-              <img src="{{field.value.url}}" alt="Capa para {{recipe.title}}">
-            </div> 
-          
-          {% endif %}
-
         {% endfor %}
-      </div>  
+      </div>
 
       {% if form.errors %}
       <div class="form-content form-content-grid">

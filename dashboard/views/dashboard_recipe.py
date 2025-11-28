@@ -20,12 +20,8 @@ class DashboardRecipe(View):
     def get_recipe(self, id=None):
         recipe = None
         if id is not None:
-            recipe = Recipe.objects.filter(
-                is_published=False,
-                author=self.request.user,
-                id = id,
-            ).first()
-
+            # Permite que qualquer staff/superuser edite qualquer receita
+            recipe = Recipe.objects.filter(id=id).first()
             if not recipe:
                 raise Http404()
         return recipe
@@ -55,16 +51,25 @@ class DashboardRecipe(View):
         )
 
         if form.is_valid():
-            # Now, the form is valid and i can try save it .
             recipe = form.save(commit=False)
+            new_category_name = form.cleaned_data.get('new_category')
+            if new_category_name:
+                from recipes.models import Category
+                category, created = Category.objects.get_or_create(name=new_category_name)
+                recipe.category = category
 
-            recipe.author = request.user
+            new_author_username = form.cleaned_data.get('new_author')
+            if new_author_username:
+                from django.contrib.auth.models import User
+                author, created = User.objects.get_or_create(username=new_author_username)
+                recipe.author = author
+            else:
+                recipe.author = form.cleaned_data.get('author')
             recipe.preparation_steps_is_html = False
-            recipe.is_published = False
-
+            recipe.is_published = True  
             recipe.save()
             messages.success(request, 'Sua receita foi salva com sucesso.')
-            return redirect(reverse('authors:dashboard_recipe_edit', args=(recipe.id,)))
+            return redirect(reverse('dashboard:dashboard_recipe_edit', args=(recipe.id,)))
 
         return self.render_recipe(form)
     

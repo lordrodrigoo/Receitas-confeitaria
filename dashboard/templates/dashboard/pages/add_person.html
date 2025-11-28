@@ -1,0 +1,13 @@
+{% extends "global/base.html" %}
+
+{% block title %}Adicionar Membros | Dashboard{% endblock %}
+
+{% block content %}
+<div class="main-content center container">
+    <h2>Adicionar novo usuário</h2>
+    {% include "global/partials/messages.html" %}
+    <div class="left">
+        {% include "global/partials/form.html" %}
+    </div>
+</div>
+{% endblock %}

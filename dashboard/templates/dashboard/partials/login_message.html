@@ -1,12 +1,17 @@
 {% if request.user.is_authenticated %}
-    <div class="login-message">Vocẽ esta logado como:
-        <strong>{{ request.user.username }}.</strong>
-        <a href="{% url "authors:dashboard" %}">Veja suas receitas</a>,
-        <a href="{% url "authors:dashboard_recipe_new" %}">Crie uma nova receita</a>
-        
-    
+    <div class="login-message">
+        Você está logado como: <strong>{{ request.user.username }}</strong>
+        <div class="dashboard-menu">
+            <a href="{% url 'dashboard:dashboard_recipe_new' %}" class="dashboard-menu-btn">Criar receita</a>
+            <a href="{% url 'dashboard:dashboard' %}" class="dashboard-menu-btn">Minhas receitas</a>
+            {% if request.user.is_superuser %}
+                <a href="{% url 'dashboard:add_person' %}" class="dashboard-menu-btn">Adicionar usuário</a>
+            {% endif %}
+            <form method="post" action="{% url 'dashboard:logout' %}" class="dashboard-menu-logout-form">
+                {% csrf_token %}
+                <input type="hidden" name="username" value="{{ request.user.username }}">
+                <button type="submit" class="dashboard-menu-btn dashboard-menu-logout">Sair</button>
+            </form>
+        </div>
     </div>
-
-
-
 {% endif %}

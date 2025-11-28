@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from .views.category_delete import CategoryDeleteView
+from .views.user_delete import UserDeleteView
 from rest_framework.routers import SimpleRouter
 
 
@@ -25,6 +27,11 @@ urlpatterns = [
     path('dashboard/recipe/new/', views.DashboardRecipe.as_view(), name='dashboard_recipe_new' ),
     path('dashboard/recipe/delete/', views.DashboardRecipeDelete.as_view(), name='dashboard_recipe_delete' ),
     path('dashboard/recipe/<int:id>/edit/', views.DashboardRecipe.as_view(), name='dashboard_recipe_edit' ),
+
+    path('dashboard/add-person/', views.add_person, name='add_person'),
+
+    path('dashboard/category/delete/', CategoryDeleteView.as_view(), name='dashboard_category_delete'),
+    path('dashboard/user/delete/', UserDeleteView.as_view(), name='dashboard_user_delete'),
 
 ]
 

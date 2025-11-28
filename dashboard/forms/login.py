@@ -4,9 +4,8 @@ from utils.django_forms import add_placeholder
 class DashboardLoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        add_placeholder(self.fields['username'], 'Nome de usuário')
-        add_placeholder(self.fields['password'], 'Senha')
+        add_placeholder(self.fields['usuario'], 'Nome de usuário')
+        add_placeholder(self.fields['senha'], 'Senha')
 
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput())
-
+    usuario = forms.CharField(label='Usuario')
+    senha = forms.CharField(widget=forms.PasswordInput(), label='Senha')

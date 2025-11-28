@@ -134,9 +134,6 @@
         color: var(--color-primary-hover);
         transition: color 0.3s ease;
     }
-
-    
-
    
     .menu-container {
     position: fixed;
