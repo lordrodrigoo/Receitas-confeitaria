@@ -103,8 +103,8 @@ def logout_view(request):
 
 @login_required(login_url='dashboard:login', redirect_field_name='next')
 def dashboard(request):
-    # Mostra todas as receitas criadas pelo usuário logado (publicadas ou não)
-    recipes = Recipe.objects.filter(author=request.user)
+    # Mostra todas as receitas cadastradas, independente do autor
+    recipes = Recipe.objects.all()
     categories = Category.objects.all()
     from dashboard.forms.category_delete_form import CategoryDeleteForm
     from dashboard.forms.user_delete_form import UserDeleteForm
