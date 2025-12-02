@@ -3,19 +3,6 @@ from django import forms
 from django.contrib.auth.models import User
 from utils.django_forms import add_placeholder, strong_password
 
-def clean_username(self):
-    username = self.cleaned_data.get('username')
-    if User.objects.filter(username=username).exists():
-        raise ValidationError('Já existe um usuário com esse nome de usuário.')
-    return username
-
-def clean_email(self):
-    email = self.cleaned_data.get('email')
-    if User.objects.filter(email=email).exists():
-        raise ValidationError('Já existe um usuário com esse e-mail.')
-    return email
-
-
 class AddPersonForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -39,6 +26,23 @@ class AddPersonForm(forms.ModelForm):
             'username',
             'email',
         ]
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username=username).exists():
+            raise ValidationError('Um usuário com este nome de usuário já existe.')
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise ValidationError('Já existe um usuário com esse e-mail.')
+        return email
+
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        strong_password(password)
+        return password
 
     def save(self, commit=True):
         user = super().save(commit=False)

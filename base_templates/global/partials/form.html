@@ -8,6 +8,7 @@
 
       <div class="form-content form-content-grid">
         {% for field in form %}
+          {% if field.name != 'search' %}
           <div class="form-group {{field.field.widget.attrs.class}}">
             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
             {{field}}
@@ -23,6 +24,7 @@
               </div>
             {% endif %}
           </div>
+          {% endif %}
         {% endfor %}
       </div>
 

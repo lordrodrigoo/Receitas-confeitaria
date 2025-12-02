@@ -30,11 +30,13 @@ class RecipeSearchViewTest(RecipeTestBase):
         recipe1 = self.make_recipe(
             title=title1,
             slug='recipe-one',
+            author=self.make_author(username='user1')
         )
 
         recipe2 = self.make_recipe(
             title=title2,
             slug='recipe-two',
+            author=self.make_author(username='user2')
         )
         search_url = reverse('recipes:search')
         response1 = self.client.get(f'{search_url}?q={title1}')

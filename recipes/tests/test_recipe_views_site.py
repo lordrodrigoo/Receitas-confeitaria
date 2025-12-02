@@ -3,9 +3,31 @@ from django.urls import reverse
 from recipes.models import Recipe, Category
 from django.contrib.auth.models import User
 from django.test import Client
-from django.http import Http404
 
-class TestRecipeHomeView:
+class RecipeViewsTestBase:
+    def create_category(self, name='Bolos'):
+        return Category.objects.create(name=name)
+
+    def create_user(self, username='user'):
+        return User.objects.create(username=username)
+
+    def create_recipe(self, **kwargs):
+        defaults = {
+            'title': 'Bolo',
+            'description': 'desc',
+            'slug': 'bolo',
+            'preparation_time': 10,
+            'preparation_time_unit': 'min',
+            'servings': 2,
+            'servings_unit': 'porcao',
+            'preparation_steps': 'passos',
+            'category': None,
+            'author': None,
+        }
+        defaults.update(kwargs)
+        return Recipe.objects.create(**defaults)
+
+class TestRecipeHomeView(RecipeViewsTestBase):
     @pytest.mark.django_db
     def test_home_view_status_and_template(self):
         client = Client()
@@ -15,29 +37,18 @@ class TestRecipeHomeView:
 
     @pytest.mark.django_db
     def test_home_view_context_categories(self):
-        cat = Category.objects.create(name='Bolos')
+        self.create_category()
         client = Client()
         response = client.get(reverse('recipes:home'))
         assert 'categories' in response.context
         assert list(response.context['categories']) == list(Category.objects.all())
 
-class TestRecipeDetailView:
+class TestRecipeDetailView(RecipeViewsTestBase):
     @pytest.mark.django_db
     def test_detail_view_status_and_template(self):
-        cat = Category.objects.create(name='Bolos')
-        user = User.objects.create(username='user')
-        recipe = Recipe.objects.create(
-            title='Bolo',
-            description='desc',
-            slug='bolo',
-            preparation_time=10,
-            preparation_time_unit='min',
-            servings=2,
-            servings_unit='porcao',
-            preparation_steps='passos',
-            category=cat,
-            author=user,
-        )
+        cat = self.create_category()
+        user = self.create_user()
+        recipe = self.create_recipe(category=cat, author=user)
         client = Client()
         response = client.get(reverse('recipes:recipe', args=[recipe.id]))
         assert response.status_code == 200
@@ -45,7 +56,7 @@ class TestRecipeDetailView:
         assert response.context['is_detail_page'] is True
         assert 'categories' in response.context
 
-class TestRecipeAboutView:
+class TestRecipeAboutView(RecipeViewsTestBase):
     @pytest.mark.django_db
     def test_about_view_status_and_template(self):
         client = Client()
@@ -54,7 +65,7 @@ class TestRecipeAboutView:
         assert 'recipes/pages/about.html' in [t.name for t in response.templates]
         assert 'categories' in response.context
 
-class TestRecipeListViewSearch:
+class TestRecipeListViewSearch(RecipeViewsTestBase):
     @pytest.mark.django_db
     def test_search_view_no_query_raises_404(self):
         client = Client()
