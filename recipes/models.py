@@ -59,7 +59,6 @@ class Recipe(models.Model):
         default=False, verbose_name='O modo de preparo está em HTML?')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Criado em')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Atualizado em')
-    is_published = models.BooleanField(default=False, verbose_name='Publicado?')
     cover = models.ImageField(upload_to='recipes/covers/%Y/%m/%d/', blank=True, default='',)
     
     category = models.ForeignKey(

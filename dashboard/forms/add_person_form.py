@@ -45,5 +45,4 @@ class AddPersonForm(forms.ModelForm):
         user.set_password(self.cleaned_data['password'])
         if commit:
             user.save()
-        # NÃO criar Profile manualmente aqui!
         return user

@@ -18,7 +18,7 @@ class IsSuperUserOrStaff(BasePermission):
 
 class RecipeAPIv1ViewSet(ModelViewSet):
 	permission_classes = [IsSuperUserOrStaff]
-	queryset = Recipe.objects.filter(is_published=True).order_by('-id')
+	queryset = Recipe.objects.all().order_by('-id')
 	serializer_class = RecipeSerializer
 	pagination_class = RecipeAPIv1Pagination
 

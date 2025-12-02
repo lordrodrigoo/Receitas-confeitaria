@@ -16,12 +16,10 @@
 
 <div class="recipe-author">
 
-    {% if recipe.author and recipe.author.profile %}
+    {% if recipe.author %}
         <span class="recipe-author-item">
-            <a href="{% url 'authors:public-profile' recipe.author.profile.id %}">
-                <i class="fas fa-user"></i>
-                {{ recipe.author.get_full_name|default:recipe.author.username }}
-            </a>
+            <i class="fas fa-user"></i>
+            {{ recipe.author.get_full_name|default:recipe.author.username }}
         </span>
     {% elif recipe.author %}
         <span class="recipe-author-item">

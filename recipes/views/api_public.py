@@ -10,7 +10,7 @@ class RecipeListAPIv1(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        recipes = Recipe.objects.filter(is_published=True).order_by('-id')
+        recipes = Recipe.objects.all().order_by('-id')
         paginator = RecipeAPIv1Pagination()
         paginated_recipes = paginator.paginate_queryset(recipes, request)
         serializer = RecipeSerializer(paginated_recipes, many=True)

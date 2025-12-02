@@ -22,7 +22,7 @@ class RecipeModelRecipeTest(RecipeTestBase):
         servings_unit='pessoa',           
         preparation_steps='Unique Recipe Preparation Steps',
         preparation_steps_is_html=False,
-        is_published=False,
+        # is_published removido
         cover='',
         category=None, 
         author=None,
@@ -43,7 +43,7 @@ class RecipeModelRecipeTest(RecipeTestBase):
         self.assertEqual(recipe.servings_unit, 'pessoa')           
         self.assertEqual(recipe.preparation_steps, 'Unique Recipe Preparation Steps')
         self.assertFalse(recipe.preparation_steps_is_html)
-        self.assertFalse(recipe.is_published)
+        # self.assertFalse(recipe.is_published) removido
         self.assertEqual(recipe.cover, '')
 
     def test_recipe_str_method(self):

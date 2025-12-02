@@ -51,6 +51,7 @@ def login_create(request):
     if not request.POST:
         raise Http404()
     form = LoginForm(request.POST)
+
     if form.is_valid():
         usuario = form.cleaned_data.get('usuario', '')
         senha = form.cleaned_data.get('senha', '')
@@ -58,6 +59,7 @@ def login_create(request):
             username=usuario,
             password=senha,
         )
+        
         if authenticated_user is not None:
             messages.success(request, 'Você está logado.')
             login(request, authenticated_user)

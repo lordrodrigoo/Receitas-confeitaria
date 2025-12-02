@@ -20,7 +20,7 @@ class DashboardRecipe(View):
     def get_recipe(self, id=None):
         recipe = None
         if id is not None:
-            # Permite que qualquer staff/superuser edite qualquer receita
+            # Allowed that any staff/superuser edit any recipe
             recipe = Recipe.objects.filter(id=id).first()
             if not recipe:
                 raise Http404()
@@ -66,7 +66,6 @@ class DashboardRecipe(View):
             else:
                 recipe.author = form.cleaned_data.get('author')
             recipe.preparation_steps_is_html = False
-            recipe.is_published = True  
             recipe.save()
             messages.success(request, 'Sua receita foi salva com sucesso.')
             return redirect(reverse('dashboard:dashboard_recipe_edit', args=(recipe.id,)))

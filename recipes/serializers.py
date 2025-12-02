@@ -13,10 +13,7 @@ class RecipeSerializer(serializers.ModelSerializer):
             'preparation_steps', 'cover',
         ]
 
-    public = serializers.BooleanField(
-        source='is_published',
-        read_only=True,
-    )
+    # public removido pois dependia de is_published
     preparation = serializers.SerializerMethodField(
         method_name='any_method_name',
         read_only=True,

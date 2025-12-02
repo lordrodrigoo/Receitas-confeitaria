@@ -11,8 +11,6 @@ from utils.pagination import make_pagination
 import os
 
 
-
-# Create your views here.
 PER_PAGE = int(os.environ.get('PER_PAGE'))
 
 
@@ -25,7 +23,6 @@ class RecipeListViewBase(ListView):
 
     def get_queryset(self, *args, **kwargs):
         qs = super().get_queryset(*args, **kwargs)
-        qs = qs.filter(is_published=True)
         qs = qs.select_related('author', 'category')
         return qs
 
@@ -61,7 +58,6 @@ class RecipeDetail(DetailView):
 
     def get_queryset(self, *args, **kwargs):
         qs = super().get_queryset(*args, **kwargs)
-        qs = qs.filter(is_published=True)
         return qs
     
     def get_context_data(self, *args, **kwargs):
@@ -139,4 +135,6 @@ class RecipeListViewCategory(RecipeListViewBase):
         qs = qs.filter(
             category__id=self.kwargs.get('category_id')
         )
+        if not qs.exists():
+            raise Http404('Nenhuma receita encontrada para esta categoria.')
         return qs

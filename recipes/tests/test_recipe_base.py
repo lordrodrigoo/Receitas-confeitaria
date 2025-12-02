@@ -13,7 +13,6 @@ class RecipeMixin:
             servings_unit='people',
             preparation_steps='Recipe Preparation Steps',
             preparation_steps_is_html=False,
-            is_published=True,
             cover='',
     ):
         recipe = Recipe.objects.create(
@@ -26,7 +25,6 @@ class RecipeMixin:
             servings_unit=servings_unit,
             preparation_steps=preparation_steps,
             preparation_steps_is_html=preparation_steps_is_html,
-            is_published=is_published,
             cover=cover,
         )
         return recipe
