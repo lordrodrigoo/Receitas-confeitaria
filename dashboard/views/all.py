@@ -6,8 +6,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from recipes.models import Recipe, Category
 from dashboard.forms import RegisterForm, LoginForm
-from dashboard.forms.recipe_form import DashboardRecipeForm
 from dashboard.forms.add_person_form import AddPersonForm
+
+from dashboard.forms.category_delete_form import CategoryDeleteForm
+from dashboard.forms.user_delete_form import UserDeleteForm
+from django.contrib.auth.models import User
 
 def register_view(request):
     register_form_data = request.session.get('register_form_data', None)
@@ -108,9 +111,7 @@ def dashboard(request):
     # Mostra todas as receitas cadastradas, independente do autor
     recipes = Recipe.objects.all()
     categories = Category.objects.all()
-    from dashboard.forms.category_delete_form import CategoryDeleteForm
-    from dashboard.forms.user_delete_form import UserDeleteForm
-    from django.contrib.auth.models import User
+    
     users = User.objects.filter(is_superuser=False)
     category_delete_form = CategoryDeleteForm()
     user_delete_form = UserDeleteForm()
