@@ -3,8 +3,8 @@ POST http://127.0.0.1:8000/recipes/api/token/
 Content-Type: application/json
 
 {
-  "username": "rodrigo",
-  "password": "2944508"
+  "username": "YourUsername",
+  "password": "YourPassword"
 }
 
 ### update token JWT
@@ -12,7 +12,7 @@ POST http://127.0.0.1:8000/recipes/api/token/refresh/
 Content-Type: application/json
 
 {
-  "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc2MzU4OTcyMSwiaWF0IjoxNzYzNTAzMzIxLCJqdGkiOiJjMDU1Y2VjNDAyZGU0OWNiYjY3OTI3ZWQwMjg3ODc2NiIsInVzZXJfaWQiOiIxIn0.l_geJ_UT5G3fXA22zg1g1lqdcYi44HUSOk0qm8sMzD0",
+  "refresh": "YourRefreshTokenHere"
 }
 
 ### verify validation token JWT
@@ -20,6 +20,5 @@ POST http://127.0.0.1:8000/recipes/api/token/verify/
 Content-Type: application/json
 
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzNTAzNjIxLCJpYXQiOjE3NjM1MDMzMjEsImp0aSI6IjI4ZDQ5NDc1ODYwNzQzOWJiODUxOWRjMWI0OTg1YjhmIiwidXNlcl9pZCI6IjEifQ._ag6kkznSy5Mc8rn-UdtjDL_OkUIJBK96jT2DhMz31s"
+  "token": "YourAccessTokenHere"
 }
-

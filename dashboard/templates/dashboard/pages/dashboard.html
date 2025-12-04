@@ -57,6 +57,7 @@
             <tr>
                <td>{{ category.name }}</td>
                <td>
+                  <a href="{% url 'dashboard:edit_category' category.id %}" class="btn-edit" title="Editar">Editar</a>
                   <form class="inline-form form-delete-category" action="{% url 'dashboard:dashboard_category_delete' %}" method="post" style="display:inline;">
                      {% csrf_token %}
                      <input type="hidden" name="category_id" value="{{ category.id }}">
@@ -87,6 +88,7 @@
                <td>{{ user.get_full_name|default:user.username }}</td>
                <td>{{ user.username }}</td>
                <td>
+                  <a href="{% url 'dashboard:edit_person' user.id %}" class="btn-edit" title="Editar">Editar</a>
                   <form class="inline-form form-delete-user" action="{% url 'dashboard:dashboard_user_delete' %}" method="post" style="display:inline;">
                      {% csrf_token %}
                      <input type="hidden" name="user_id" value="{{ user.id }}">

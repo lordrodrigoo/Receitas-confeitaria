@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required, user_passes_test
 from recipes.models import Category, Recipe
-from dashboard.forms.category_delete_form import CategoryDeleteForm
+from dashboard.forms import CategoryDeleteForm, EditCategoryForm
 
 def superuser_required(view_func):
     return user_passes_test(lambda u: u.is_superuser, login_url='dashboard:dashboard')(view_func)
@@ -25,3 +25,27 @@ class CategoryDeleteView(View):
         else:
             messages.error(request, 'Requisição inválida para exclusão de categoria.')
         return redirect(reverse('dashboard:dashboard'))
+
+@method_decorator([login_required(login_url='dashboard:login'), superuser_required], name='dispatch')
+class CategoryEditView(View):
+    def get(self, request, pk):
+        category = get_object_or_404(Category, pk=pk)
+        form = EditCategoryForm(instance=category)
+        return render(request, 'dashboard/pages/edit_category.html', {
+            'form': form,
+            'category': category,
+            'form_action': reverse('dashboard:edit_category', args=[pk]),
+        })
+
+    def post(self, request, pk):
+        category = get_object_or_404(Category, pk=pk)
+        form = EditCategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Categoria editada com sucesso!')
+            return redirect('dashboard:dashboard')
+        return render(request, 'dashboard/pages/edit_category.html', {
+            'form': form,
+            'category': category,
+            'form_action': reverse('dashboard:edit_category', args=[pk]),
+        })

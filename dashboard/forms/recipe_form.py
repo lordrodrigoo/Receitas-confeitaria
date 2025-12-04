@@ -5,10 +5,11 @@ from recipes.models import Recipe
 from django.core.exceptions import ValidationError
 from utils.django_forms import add_attr
 from dashboard.validators import RecipeDashboardValidator
+from django.contrib.auth.models import User
 
 
 class DashboardRecipeForm(forms.ModelForm):
-    from django.contrib.auth.models import User
+    
     author = forms.ModelChoiceField(
         queryset=User.objects.all(),
         label='Autor',

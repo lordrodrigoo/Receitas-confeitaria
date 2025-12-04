@@ -1,10 +1,12 @@
 @url = http://127.0.0.1:8000
 @searchTerm = bolo
+@page = 1
 
+### List all recipes
 GET {{url}}/recipes/api/v1/
 Accept: application/json
-###
 
+### Search Test
 GET {{url}}/recipes/api/v1/?search={{searchTerm}}
 Accept: application/json
 ###

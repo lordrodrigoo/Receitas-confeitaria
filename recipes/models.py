@@ -3,12 +3,13 @@ from django.urls import reverse
 from PIL import Image
 import os
 from django.conf import settings
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.utils.text import slugify
 import string
 from random import SystemRandom
 from collections import defaultdict
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=65)
@@ -69,7 +70,7 @@ class Recipe(models.Model):
     )
 
     author = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Autor')
+        User, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Autor')
 
     def get_absolute_url(self):
         return reverse('recipes:recipe', args=(self.id,))

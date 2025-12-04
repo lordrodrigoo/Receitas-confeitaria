@@ -1,0 +1,106 @@
+@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY0ODgyMTcyLCJpYXQiOjE3NjQ4Nzg1NzIsImp0aSI6IjVhYWZiMGFjMGE5MzRiNGFhMmY0MzMzOWIyMWE5NzEzIiwidXNlcl9pZCI6IjEifQ.yT64Oeoq-d8ultivs1fa25c8hs4AWLo6Zyo06r_WaRo
+
+### Receitas - Dashboard
+
+### List all recipes
+GET http://127.0.0.1:8000/painel/recipes/
+Authorization: Bearer {{access_token}}
+Accept: application/json
+
+
+### View a specific recipe
+GET http://127.0.0.1:8000/painel/recipes/1/
+Authorization: Bearer {{access_token}}
+Accept: application/json
+
+
+### Create a new recipe
+POST http://127.0.0.1:8000/painel/recipes/
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+Accept: application/json
+
+{
+  "title": "Bolo de Chocolate Exemplo",
+  "description": "Descrição breve do bolo",
+  "preparation_time": 60,
+  "preparation_time_unit": "min",
+  "servings": 8,
+  "servings_unit": "porcao",
+  "preparation_steps": "Misture os ingredientes e asse por 40 minutos.",
+  "author": 1
+}
+
+
+### Update a recipe (PUT)
+PUT http://127.0.0.1:8000/painel/recipes/1/
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+Accept: application/json
+
+{
+  "title": "Bolo de Chocolate Atualizado",
+  "description": "Descrição atualizada",
+  "preparation_time": 50,
+  "preparation_time_unit": "min",
+  "servings": 6,
+  "servings_unit": "porcao",
+  "preparation_steps": "Passos atualizados",
+  "author": 1
+}
+
+
+### Update a recipe partially (PATCH)
+PATCH http://127.0.0.1:8000/painel/recipes/1/
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+Accept: application/json
+
+{
+  "title": "Bolo de Chocolate - Alteração rápida"
+}
+
+
+### Delete a recipe
+DELETE http://127.0.0.1:8000/painel/recipes/1/
+Authorization: Bearer {{access_token}}
+Accept: application/json
+
+
+### Categorias - Dashboard
+
+### List all categories
+GET http://127.0.0.1:8000/painel/categories/
+Authorization: Bearer {{access_token}}
+Accept: application/json
+
+### Create a new category
+POST http://127.0.0.1:8000/painel/categories/
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+Accept: application/json
+
+{
+  "name": "Doces"
+}
+
+
+### Update a category
+PUT http://127.0.0.1:8000/painel/categories/1/
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+Accept: application/json
+
+{
+  "name": "Bolos"
+}
+
+
+### Delete a category
+
+DELETE http://127.0.0.1:8000/painel/categories/1/
+Authorization: Bearer {{access_token}}
+Accept: application/json
+
+
+
