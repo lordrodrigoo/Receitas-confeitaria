@@ -22,6 +22,9 @@ jobs:
             echo "🔄 Atualizando código do repositório..."
             git fetch origin
             git reset --hard origin/main
+
+            echo "📦 Coletando arquivos estáticos..."
+            docker-compose run --rm web python manage.py collectstatic --noinput
             
             echo "🛑 Parando containers..."
             docker-compose down
