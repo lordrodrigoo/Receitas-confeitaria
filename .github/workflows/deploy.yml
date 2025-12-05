@@ -1,0 +1,43 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd /home/ubuntu/app_repo
+            
+            echo "🔄 Atualizando código do repositório..."
+            git pull origin main
+            
+            echo "🛑 Parando containers..."
+            docker-compose down
+            
+            echo "🔨 Reconstruindo imagens Docker..."
+            docker-compose build
+            
+            echo "🚀 Subindo containers..."
+            docker-compose up -d
+            
+            echo "⏳ Aguardando containers iniciarem e executarem migrações..."
+            sleep 15
+            
+            echo "🧹 Limpando imagens antigas..."
+            docker image prune -f
+            
+            echo "✅ Deploy concluído com sucesso!"
+            
+            echo "📊 Status dos containers:"
+            docker-compose ps

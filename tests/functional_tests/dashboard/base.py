@@ -16,7 +16,7 @@ class DashboardBaseTest(StaticLiveServerTestCase):
         self.browser.quit()
         return super().tearDown()
     
-    def sleep(self, qtd=5):
+    def sleep(self, qtd=3):
         time.sleep(qtd)
 
     # Wait helpers
