@@ -20,7 +20,8 @@ jobs:
             cd /home/ubuntu/app_repo
             
             echo "🔄 Atualizando código do repositório..."
-            git pull origin main
+            git fetch origin
+            git reset --hard origin/main
             
             echo "🛑 Parando containers..."
             docker-compose down
