@@ -1,5 +1,3 @@
-
-
 /* MENU  -MOBILE */
 .menu-content {
     display: none;
@@ -51,6 +49,18 @@
 }
 
 
+.welcome-banner {
+  background: #fff8e1;
+  color: #7c4700;
+  text-align: center;
+  padding: 1.2rem 0.5rem;
+  margin: 0 0 1.5rem 0;
+  border-radius: 0.6rem;
+  font-size: 1.8rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+
+}
+
 
 /* MENU LEFT MOBILE */
 @media screen and (max-width: 600px) {
@@ -60,7 +70,6 @@
     }
 
     .logo {
-        margin-left: 5rem;
         width: 30rem;
         height: 30rem;
         display: block;
@@ -102,7 +111,7 @@
         display: visible;
         position: absolute;
         padding-bottom: 12rem;
-        left: 2rem;
+        left: 3rem;
         background: none;
         border: none;
         color: var(--color-primary-hover);
@@ -157,8 +166,15 @@
       transform: translateX(-100%);
       width: 0;
   }
+
+  .welcome-banner {
+    font-size: 1.1rem;
+    padding: 0.8rem 0.2rem;
+  }
     
 }
+
+
 
 
 

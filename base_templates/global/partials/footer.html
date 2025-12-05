@@ -1,9 +1,23 @@
-<footer class="main-footer">
-  <div class="developer">
-    <a href="https://github.com/lordrodrigoo/lordrodrigoo" target="_blank" rel="noreferrer noopener">By Rodrigo de Almeida</a>
-  </div>
+{% load static %}
 
-  <div class="powered">
-    <a href="https://www.djangoproject.com/" target="_blank" rel="noreferrer noopener">Powered by Django</a>
-  </div>
+<footer class="main-footer">
+    <div class="footer-container container">
+        <div class="footer-content">
+            <p>&copy; 2025 Receitas da Dália Moreira. Todos os direitos reservados.</p>
+        </div>
+
+        <div class="footer-social-links">
+            <a style='color: var(--color-white)' href="https://wa.me/5511995469412/" target='_blank'><i class="fa-brands fa-whatsapp"></i></a>
+            <a style='color: var(--color-white)' href="https://www.instagram.com/confeitariadadalia/" target="_blank" alt="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com/enidalia.moreira?mibextid=wwXIfr&rdid=fcDZPuyhRN73N7Va&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1EqmAUpKPg%2F%3Fmibextid%3DwwXIfr#" target="_blank">
+                    <i class="fa-brands fa-facebook" style='color: var(--color-white)'></i>
+                </a>
+
+            <a href="https://www.ifood.com.br/delivery/sao-paulo-sp/confeitaria-dalia-bolos-e-sobremesas-vila-fernandes/8aa01342-582c-46f4-bec7-37faf062f735?UTM_Medium=share" target='_blank'>
+                <img src="{% static "global/img/svg/logo-ifood.svg" %}" alt="iFood" class="icon-ifood"> 
+            </a>
+
+        </div>
+         
+    </div>
 </footer>

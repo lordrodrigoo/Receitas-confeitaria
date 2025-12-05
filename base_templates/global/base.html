@@ -9,8 +9,13 @@
 </head>
 
 <body>
+    
     {% include "global/partials/header.html" %}
+    <div class="welcome-banner">
+        Bem-vindo ao nosso site de receitas! Descubra, compartilhe e experimente as melhores receitas.
+    </div>
     {% include "global/partials/search.html" %}
+
 
     <main class="main-content-container">
         {% block content %}{% endblock content %}
