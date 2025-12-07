@@ -10,6 +10,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
 
+
     'recipes',
     'dashboard',
     'rest_framework',

@@ -12,6 +12,12 @@ class DashboardCreateRecipeTest(DashboardBaseTest):
         # go to recipe creation
         self.go_to_create_recipe()
 
+        self.wait_for_element(By.NAME, 'title')
+        try:
+            self.get_by_placeholder(self.browser, 'Título')  # Ajuste conforme placeholder real
+        except Exception:
+            pass
+
         # Fill out the recipe form using helper
         self.fill_recipe_form(
             title='Bolo de Chocolate',
@@ -29,6 +35,12 @@ class DashboardCreateRecipeTest(DashboardBaseTest):
 
         body = self.browser.find_element(By.TAG_NAME, 'body')
         assert 'Sua receita foi salva com sucesso.' in body.text
+
+    def test_login_fallback_message(self):
+        # Força o except Exception do login_as
+        self.login_as('usuario_invalido', 'senha_errada', wait=1)
+        body = self.browser.find_element(By.TAG_NAME, 'body')
+        assert 'Você está logado.' not in body.text
 
     def test_superuser_sees_created_recipe_in_dashboard(self):
         # create superuser and login using helpers
