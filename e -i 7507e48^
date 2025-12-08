@@ -1,0 +1,62 @@
+[33m9cc971e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m ajusted deploy
+[33m34ca522[m deploy 1
+[33m7dd8821[m ci: use Chromium for functional tests
+[33m7227fa1[m ci: use Chromium for functional tests
+[33m846d162[m ci: use Chromium for functional tests
+[33mca3c699[m ci: use Chromium for functional tests
+[33mc654944[m ci: use Chromium for functional tests
+[33m85f8690[m ci: use Chromium for functional tests
+[33ma2752ab[m ci: use Chromium for functional tests
+[33mfa27f2d[m ci: use Chromium for functional tests
+[33md87648b[m ci: use Chromium for functional tests
+[33m84329ce[m ci: use Chromium for functional tests
+[33mc896f03[m ci: use Chromium for functional tests
+[33m9fda021[m ci: use Chromium for functional tests
+[33mec64957[m ci: use Chromium for functional tests
+[33mb3fec6f[m ci: use Chromium for functional tests
+[33m221dfe9[m ci: set GOOGLE_CHROME_BIN and Chrome path
+[33m17a88a5[m ci: use Selenium Manager fallback
+[33m1ebc3fe[m ci: headless chrome + chromedriver path
+[33meab4c69[m ajusted workflow
+[33m392ac45[m ajusted per page
+[33m7507e48[m Ajusted welcome and created more tests and ajusted deploy
+[33meb5b409[m storage
+[33mce30def[m storage
+[33m0f80d2c[m Ajusted Logo and welcome message and footer
+[33mc63587c[m Ajusted main-form
+[33mf57e53a[m Ajusted docker-compose
+[33m1c5b65c[m force reset ec2
+[33md114d42[m test deploy
+[33m181f5da[m Add pipeline to automatic deploy
+[33maed5fa1[m Ajusted forms, and organized models, views among others
+[33m1ad8852[m Add tests in dashboard, all parts
+[33m065c18f[m Add functional tests with selenium
+[33ma2bc5c8[m Add tests in dashboard and recipes
+[33m58d5d27[m Ajusted Dashboard
+[33m53bffec[m Created category_delete and user_delete on dashboard
+[33mae4a150[m Migrations authors and dashboard
+[33m42e617c[m Created Dashboard and ajusted logic
+[33m57792ce[m Add app author and ajusted parts in general of project
+[33m35a1e32[m Add Serializer and ajusted categories
+[33mb3b6466[m Add pagination
+[33m4a0553f[m Add template about and style
+[33m52ec4a8[m Ajusted layolt and configuring some methods on class Recipe
+[33m4c08b70[m start deploy
+[33m2c4301c[m Testing deploy
+[33m41a95ae[m Preparing to deploy
+[33mf6281f4[m deploy pt 1
+[33m3a5bc70[m deploy
+[33m62aa690[m Add author app migrations
+[33m33078dd[m testing deploy
+[33m2a04430[m Config docker and dependences. Config nginx and gunicorn
+[33mdc8dfef[m created app author and config some parts and nav bar for mobile
+[33m850206e[m Add template category and configuring url and view more tests category
+[33m0d31cc2[m Created search and configuring all dependences
+[33m1ab43d9[m Organized settings in files
+[33m9750bb0[m Add logo and ajusted footer and created recipe.html
+[33m9fb913c[m Coverage, some tests, home, footer, head, header templates, created style.css ajusted settings
+[33m0bff9a5[m Testing creating one recipes and configuring covers and ajusted models Recipe
+[33m88c6e48[m Created model recipe and tests
+[33m6c63682[m Add recipes and ajusted pytest, configure env
+[33mb2c8167[m Creating repositories of aplication
+[33m4c2b98a[m Initial

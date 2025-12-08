@@ -116,7 +116,16 @@ jobs:
         run: |
           echo "🩺 Health check (opcional)"
           if [ -n "${{ secrets.APP_URL }}" ]; then
-            curl -fL "https://${{ secrets.APP_URL }}/" || curl -fL "http://${{ secrets.APP_URL }}/" || true
+            for i in {1..5}; do
+              echo "Tentativa $i..."
+              if curl -fL "https://${{ secrets.APP_URL }}/" || curl -fL "http://${{ secrets.APP_URL }}/"; then
+                echo "Health check OK!"
+                exit 0
+              fi
+              echo "Aguardando 5 segundos antes de tentar novamente..."
+              sleep 5
+            done
+            echo "Health check falhou após 5 tentativas, mas continuando o workflow."
           else
             echo "ℹ️  APP_URL não definido; pulando health check"
           fi
