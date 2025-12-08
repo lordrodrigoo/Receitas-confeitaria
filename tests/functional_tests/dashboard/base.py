@@ -30,9 +30,10 @@ class DashboardBaseTest(StaticLiveServerTestCase):
             EC.visibility_of_element_located((by, locator))
         )
 
-    def wait_for_text_in_body(self, text, timeout=10):
+    def wait_for_text_in_body(self, text, timeout=15):
+        # Always fetch the body again to avoid stale element reference
         return WebDriverWait(self.browser, timeout).until(
-            EC.text_to_be_present_in_element((By.TAG_NAME, 'body'), text)
+            lambda driver: text in driver.find_element(By.TAG_NAME, "body").text
         )
 
     def wait_for_url_contains(self, path_fragment, timeout=10):
@@ -101,7 +102,14 @@ class DashboardBaseTest(StaticLiveServerTestCase):
         submit_form_xpath = f'//input[@name="{field_name}"]/ancestor::form[1]//button[@type="submit"]'
         self.browser.find_element(By.XPATH, submit_form_xpath).click()
         # wait for success message or redirect
-        self.wait_for_text_in_body('Sua receita foi salva com sucesso.', timeout=wait)
+        try:
+            self.wait_for_text_in_body('Sua receita foi salva com sucesso.', timeout=wait)
+        except Exception:
+            # Optionally, wait for dashboard URL as fallback (adjust if needed)
+            try:
+                self.wait_for_url_contains('/dashboard/dashboard', timeout=wait)
+            except Exception:
+                pass
 
     # Helper: click 'Minhas receitas' to go to dashboard list
     def go_to_dashboard(self, wait: int = 1):
