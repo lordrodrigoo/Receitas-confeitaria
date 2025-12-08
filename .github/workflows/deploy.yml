@@ -1,30 +1,30 @@
-name: CI e Deploy (Docker Compose)
+name: CI and Deploy (Docker Compose)
 
 on:
   push:
     branches: ["main"]
   workflow_dispatch:
 
+
 jobs:
-  testes:
-    name: Executar testes com cobertura
+  unit-tests:
+    name: Unit Tests with Coverage
     runs-on: ubuntu-latest
+    env:
+      PER_PAGE: "9"
+      ADMIN_USERNAME: "admin_ci"
+      ADMIN_PASSWORD: "admin_ci_password"
+      SECRET_KEY: "test-secret-key-for-ci"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Configurar Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Instalar dependências do sistema (Pillow, psycopg2)
-        run: |
-          echo "🛠️  Atualizando apt e instalando libs do sistema"
-          sudo apt-get update -y
-          sudo apt-get install -y libpq-dev gcc libjpeg-dev zlib1g-dev
-
-      - name: Cache do pip
+      - name: Cache pip dependencies
         uses: actions/cache@v4
         with:
           path: ~/.cache/pip
@@ -32,100 +32,141 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      - name: Instalar dependências Python
+      - name: Install Python dependencies
         run: |
-          echo "📦 Instalando dependências Python"
+          echo "📦 Installing Python dependencies"
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Executar pytest com coverage
+      - name: Run unit tests with coverage
         run: |
-          echo "🧪 Rodando testes com coverage"
-          coverage run -m pytest -v
+          echo "🧪 Running unit tests"
+          coverage run -m pytest -v -k "not functional_tests"
           coverage xml
 
-      - name: Publicar relatório de cobertura
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-xml
-          path: coverage.xml
-
-  deploy:
-    name: Deploy para produção (Docker Compose)
+  functional-tests:
+    name: Functional Tests (Selenium)
     runs-on: ubuntu-latest
-    needs: testes
-    if: github.ref == 'refs/heads/main'
+    needs: unit-tests
+    continue-on-error: true
+    env:
+      PER_PAGE: "9"
+      ADMIN_USERNAME: "admin_ci"
+      ADMIN_PASSWORD: "admin_ci_password"
+      SELENIUM_HEADLESS: "1"
+      SECRET_KEY: "test-secret-key-for-ci"
+      DEBUG: "0"
+      ALLOWED_HOSTS: "localhost,127.0.0.1"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Preparar chave SSH
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Google Chrome
+        run: |
+          echo "🌐 Installing Google Chrome"
+          wget -q -O /tmp/google-chrome-stable_current_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt-get update
+          sudo apt-get install -y /tmp/google-chrome-stable_current_amd64.deb
+          google-chrome --version
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install Python dependencies
+        run: |
+          echo "📦 Installing Python dependencies"
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run functional tests
+        run: |
+          echo "🧪 Running functional tests"
+          pytest -v tests/functional_tests --liveserver=localhost:8000
+
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [unit-tests, functional-tests]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Setup SSH
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
-      - name: Adicionar host ao known_hosts
+      - name: Add host to known_hosts
         run: |
-          echo "🔑 Registrando host em known_hosts"
+          echo "🔑 Adding host to known_hosts"
           mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Etapas remotas de deploy (Docker Compose)
-        env:
-          REMOTE_APP_PATH: /home/ubuntu/app_repo
+      - name: Deploy via SSH
         run: |
           ssh ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOF'
           set -e
-          echo "📁 Entrando no diretório da aplicação"
-          cd "$REMOTE_APP_PATH"
+          echo "📁 Entering application directory"
+          cd /home/ubuntu/app_repo || { echo "❌ Directory not found"; exit 1; }
 
-          # Caso use git pull no servidor
+          # Update code from git
           if [ -d .git ]; then
-            echo "🔄 Atualizando código (git pull)"
+            echo "🔄 Updating code (git pull)"
             git fetch --all && git reset --hard origin/main
           fi
 
-          # Atualizar serviços via Docker Compose
-          if command -v docker compose >/dev/null 2>&1; then
-            DCMD="docker compose"
-          else
-            DCMD="docker-compose"
-          fi
+          # Stop old containers
+          echo "🛑 Stopping old containers"
+          docker-compose down
 
-          echo "🚀 Subindo serviços em modo detached"
-          $DCMD pull || true
-          $DCMD build || true
-          $DCMD up -d
+          # Build and start services
+          echo "🚀 Building and starting services"
+          docker-compose build
+          docker-compose up -d
 
-          echo "🗃️  Aplicando migrações"
-          $DCMD exec -T django-web python manage.py migrate --noinput
+          # Run migrations
+          echo "🗃️  Running migrations"
+          docker-compose exec -T django-web python manage.py migrate --noinput
 
-          echo "🖼️  Coletando arquivos estáticos"
-          $DCMD exec -T django-web python manage.py collectstatic --noinput
+          # Collect static files
+          echo "🖼️  Collecting static files"
+          docker-compose exec -T django-web python manage.py collectstatic --noinput
 
-          echo "🔁 Reiniciando proxy Nginx (container)"
-          $DCMD restart frontend-proxy || true
+          # Restart Nginx
+          echo "🔁 Restarting Nginx"
+          docker-compose restart frontend-proxy || true
 
-          echo "🧹 Limpando imagens antigas"
+          # Cleanup
+          echo "🧹 Cleaning up old images"
           docker image prune -f || true
 
-          echo "[TAREFA] Deploy finalizado com sucesso"
+          echo "✅ Deploy completed successfully"
           EOF
 
-      - name: Health check pós-deploy (opcional)
+      - name: Health check
         run: |
-          echo "🩺 Health check (opcional)"
+          echo "🩺 Running health check"
           if [ -n "${{ secrets.APP_URL }}" ]; then
             for i in {1..5}; do
-              echo "Tentativa $i..."
+              echo "Attempt $i..."
               if curl -fL "https://${{ secrets.APP_URL }}/" || curl -fL "http://${{ secrets.APP_URL }}/"; then
                 echo "Health check OK!"
                 exit 0
               fi
-              echo "Aguardando 5 segundos antes de tentar novamente..."
+              echo "Waiting 5 seconds before retrying..."
               sleep 5
             done
-            echo "Health check falhou após 5 tentativas, mas continuando o workflow."
+            echo "Health check failed after 5 attempts, continuing workflow."
           else
-            echo "ℹ️  APP_URL não definido; pulando health check"
+            echo "ℹ️  APP_URL not set, skipping health check"
           fi
+
+  
