@@ -19,6 +19,7 @@ Veja abaixo algumas telas do sistema em funcionamento:
 	<br>
 	<img src="docs/recipe-mobile.png" alt="Receita Mobile" width="300"/>
 </p>
+
 ---
 # Receitas Confeitaria 🍰
 
@@ -94,6 +95,11 @@ docker-compose exec django-web pytest --cov=.
 ---
 
 ## Deploy
+
+<p align="center">
+  <img src="../docs/deploy.png" alt="Deploy realizado com sucesso" width="700"/>
+</p>
+<p align="center"><i>Deploy realizado com sucesso</i></p>
 
 Veja instruções detalhadas em [deploy/README.md](deploy/README.md)
 
