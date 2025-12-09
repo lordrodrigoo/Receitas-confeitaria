@@ -14,3 +14,5 @@ class DashboardLogoutTest(DashboardBaseTest):
         self.logout_user()
         body = self.browser.find_element(By.TAG_NAME, 'body')
         assert 'Logout realizado com sucesso.' in body.text
+
+

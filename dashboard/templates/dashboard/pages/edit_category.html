@@ -1,9 +1,12 @@
 {% extends "global/base.html" %}
+{% block title %}Editar Categoria | Dashboard{% endblock %}
+
 {% block content %}
-  <h1>Editar Categoria</h1>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Salvar</button>
-  </form>
+<div class="main-content center container">
+    <h2>Editar Categoria</h2>
+    {% include "global/partials/messages.html" %}
+    <div class="left">
+        {% include "global/partials/form.html" %}
+    </div>
+</div>
 {% endblock %}

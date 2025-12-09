@@ -6,7 +6,7 @@ from dashboard.forms import CategoryDeleteForm, UserDeleteForm
 
 @login_required(login_url='dashboard:login', redirect_field_name='next')
 def dashboard_view(request):
-    recipes = Recipe.objects.all()
+    recipes = Recipe.objects.select_related('category', 'author').all()
     categories = Category.objects.all()
     users = User.objects.filter(is_superuser=False)
     category_delete_form = CategoryDeleteForm()

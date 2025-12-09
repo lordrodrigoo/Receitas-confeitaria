@@ -26,5 +26,15 @@
     
     {% include "global/partials/footer.html" %}
 
-    <script src="{% static 'global/js/menu.js' %}"></script>
+    <div id="global-loader-spinner"></div>
+</script>
+        <script src="{% static 'global/js/loaderSpinner.js' %}"></script>
+        <script src="{% static 'global/js/menu.js' %}"></script>
+        <script>
+            document.querySelectorAll('form').forEach(function(form) {
+                form.addEventListener('submit', function() {
+                    LoaderSpinner.show();
+                });
+            });
+        </script>
 </body>

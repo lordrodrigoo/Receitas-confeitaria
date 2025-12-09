@@ -70,7 +70,7 @@ class Recipe(models.Model):
     )
 
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Autor')
+        User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Autor')
 
     def get_absolute_url(self):
         return reverse('recipes:recipe', args=(self.id,))
@@ -87,7 +87,10 @@ class Recipe(models.Model):
         
         new_height = round((new_width * original_height) / original_width)
 
-        new_image = image_pillow.resize((new_width, new_height), Image.LANCZOS)
+        new_image = image_pillow.resize(
+            (new_width, new_height), Image.Resampling.LANCZOS
+            
+            )
         
         new_image.save(
             image_full_path,

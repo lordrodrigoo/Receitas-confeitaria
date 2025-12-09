@@ -115,7 +115,6 @@ docker-compose up -d --build
 - Nunca suba `.env` real para o Git.
 - Sempre teste local antes de subir para produção.
 - Use `.env.example` para documentar as variáveis necessárias.
-- Mantenha o README e este guia atualizados!
 
 ---
 

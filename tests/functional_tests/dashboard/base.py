@@ -6,8 +6,16 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from django.contrib.auth.models import User
 from typing import Optional
+from recipes.models import Category
 
 class DashboardBaseTest(StaticLiveServerTestCase):
+    def wait_for_message(self, text, timeout=15):
+        
+        return WebDriverWait(self.browser, timeout).until(
+            lambda driver: any(
+                text in el.text for el in driver.find_elements(By.CLASS_NAME, "message")
+            )
+        )
     def setUp(self):
         self.browser = make_chrome_browser()
         return super().setUp()
@@ -45,6 +53,18 @@ class DashboardBaseTest(StaticLiveServerTestCase):
         return web_element.find_element(
             By.XPATH, f'//input[@placeholder="{placeholder}"]')
     
+
+    def create_user(self, username: str, password: str, email: str = '', first_name: str = '', last_name: str = '') -> User:
+        return User.objects.create_user(
+            username=username,
+            password=password,
+            email=email,
+            first_name=first_name,
+            last_name=last_name
+        )
+    
+    def create_category(self, name: str) -> Category:
+        return Category.objects.create(name=name)
 
     # Helper: create and return a superuser
     def create_superuser(self, username: str = 'admin', password: str = 'Admin123@!') -> User:

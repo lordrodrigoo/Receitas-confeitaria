@@ -13,7 +13,6 @@ class RecipeSerializer(serializers.ModelSerializer):
             'preparation_steps', 'cover',
         ]
 
-    # public removido pois dependia de is_published
     preparation = serializers.SerializerMethodField(
         method_name='any_method_name',
         read_only=True,
@@ -31,7 +30,7 @@ class RecipeSerializer(serializers.ModelSerializer):
             attrs['preparation_time'] = self.instance.preparation_time
 
         super_validate = super().validate(attrs)
-        # AuthorRecipeValidator(super_validate, ErrorClass=serializers.ValidationError)
+        
 
         return super_validate
     
