@@ -97,7 +97,7 @@ docker-compose exec django-web pytest --cov=.
 ## Deploy
 
 <p align="center">
-  <img src="../docs/deploy.png" alt="Deploy realizado com sucesso" width="700"/>
+  <img src="docs/deploy.png" alt="Deploy realizado com sucesso" width="700"/>
 </p>
 <p align="center"><i>Deploy realizado com sucesso</i></p>
 
