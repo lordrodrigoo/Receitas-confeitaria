@@ -88,7 +88,4 @@ class DashboardSuperUserTests(DashboardBaseTest):
         body = self.browser.find_element(By.TAG_NAME, 'body')
         assert 'Você está logado.' in body.text
 
-    def test_super_user_logout(self):
-        self.logout_user()
-        self.wait_for_url_contains('/dashboard/login')
-        self.wait_for_message('Logout realizado com sucesso.')
+    

@@ -1,3 +1,8 @@
+  /* TESTEEEE */
+
+
+
+/* TESTEEEEEEEEE */
 
 /* MENU  -MOBILE */
 .menu-content {
@@ -14,9 +19,9 @@
 
 
 .logo-main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
 }
 
@@ -29,14 +34,58 @@
 }  
 
 
-
 .fa-brands {
   font-size: 4.0rem;
+}
+
+.flex-right a:focus,
+.flex-right a:active,
+.flex-right i.fa-brands:focus,
+.flex-right i.fa-brands:active {
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.flex-left a:focus,
+.flex-left a:active,
+.flex-left i.fa-brands:focus,
+.flex-left i.fa-brands:active {
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent !important;
 }
 
 .icon-ifood {
     width: 5.2rem;
     height: 5.2rem;
+}
+
+.flex-right a .icon-ifood,
+.flex-left a .icon-ifood {
+  transition: transform 0.3s;
+}
+
+.flex-right a:hover .icon-ifood,
+.flex-left a:hover .icon-ifood,
+.flex-right a:active .icon-ifood,
+.flex-left a:active .icon-ifood {
+  transform: translateX(8px) scale(1.1);
+}
+
+.flex-left a i.fa-brands,
+.flex-right a i.fa-brands {
+  transition: color 0.3s, transform 0.3s;
+}
+
+.flex-left a:hover i.fa-brands,
+.flex-right a:hover i.fa-brands,
+.flex-left a:active i.fa-brands,
+.flex-right a:active i.fa-brands {
+  
+  transform: translateX(4px) scale(1.1);
 }
 
 
@@ -47,6 +96,18 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+
+
+.logo,
+.logo-main a:focus,
+.logo-main a:active,
+.logo-main img:focus,
+.logo-main img:active {
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent !important;
 }
 
 
@@ -65,74 +126,133 @@
 
 /* MENU LEFT MOBILE */
 @media screen and (max-width: 600px) {
-    .flex-left,
-    .flex-right {
-        display: none;
-    }
-
-    .logo {
-        width: 30rem;
-        height: 30rem;
-        display: block;
-        object-fit: contain;
-    }
-    
-    
+  .flex-left,
+  .flex-right {
+      display: none;
+  }
 
 
-    .menu-content {
+  .logo,
+  .logo-main a:focus,
+  .logo-main a:active,
+  .logo-main img:focus,
+  .logo-main img:active {
+    outline: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .logo {
+      width: 30rem;
+      height: 30rem;
+      display: block;
+      object-fit: contain;
+  }
+
+  .logo-main:focus,
+  .logo-main:active {
+    outline: none;
+    background: transparent;
+    box-shadow: none;
+  }
+
+
+  .flex-right a:focus,
+  .flex-right a:active,
+  .flex-right i.fa-brands:focus,
+  .flex-right i.fa-brands:active {
+    outline: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .flex-left a:focus,
+  .flex-left a:active,
+  .flex-left i.fa-brands:focus,
+  .flex-left i.fa-brands:active {
+    outline: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .menu-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+  }
+
+  i.fa-brands,
+  i.fa-brands:focus,
+  i.fa-brands:active,
+  .icon-ifood {
+    outline: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+
+  .menu-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+  }
+
+  .menu-nav a {
+  font-size: 1.6rem;
+  color: var(--color-white);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.8rem 1.2rem;
+  }
+
+  .menu-nav a:hover {
+  color: var(--color-primary-hover);
+  transition: color 0.3s ease;
+  }
+
+
+  .button-show-menu {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 1.6rem;
-    }
-
-    .menu-nav {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 24px;
-    }
-
-    .menu-nav a {
-    font-size: 1.6rem;
-    color: var(--color-white);
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.8rem 1.2rem;
-    }
-
-    .menu-nav a:hover {
+    position: absolute;
+    top: 5rem;
+    left: 3rem;
+    background: none;
+    border: none;
     color: var(--color-primary-hover);
-    transition: color 0.3s ease;
-    }
+    font-size: 3rem;
+    cursor: pointer;
+  }
 
+  .button-show-menu,
+  .button-show-menu:focus,
+  .button-show-menu:active,
+  .button-show-menu i,
+  .button-show-menu i:focus,
+  .button-show-menu i:active {
+    outline: none;
+    background: transparent;
+    box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
+  }
 
-    
-    .button-show-menu {
+  .button-close-menu {
       display: flex;
+      display: visible;
       position: absolute;
-      top: 5rem;
-      left: 3rem;
+      top: 2rem;
+      right: 2rem;
       background: none;
       border: none;
       color: var(--color-primary-hover);
       font-size: 3rem;
       cursor: pointer;
-    }
-
-    .button-close-menu {
-        display: flex;
-        display: visible;
-        position: absolute;
-        top: 2rem;
-        right: 2rem;
-        background: none;
-        border: none;
-        color: var(--color-primary-hover);
-        font-size: 3rem;
-        cursor: pointer;
     }
 
     .menu-nav {
@@ -185,11 +305,14 @@
     justify-content: flex-end;
     width: auto;
   }
+
   .heart-logo img {
     width: 8rem;
     height: 8rem;
     display: block;
   }
+
+
 
 
     

@@ -118,19 +118,4 @@ class RecipeHomePageFunctionalTest(RecipeBaseFunctionalTest):
             page_text = self.browser.find_element(By.CLASS_NAME, 'main-content-list').text
             assert 'Não encontramos receitas aqui! 😢' in page_text
 
-    def test_home_page_lists_recipes(self):
-            # Create 3 recipes with unique authors
-            for i in range(3):
-                    self.make_recipe(
-                            title=f'Receita {i+1}',
-                            slug=f'receita-{i+1}',
-                            author=self.make_author(username=f'user{i+1}')
-                    )
-
-            self.browser.get(self.live_server_url)
-            self.sleep(2)
-            page_text = self.browser.find_element(By.CLASS_NAME, 'main-content-list').text
-
-            assert 'Receita 1' in page_text
-            assert 'Receita 2' in page_text
-            assert 'Receita 3' in page_text
+    

@@ -1,0 +1,25 @@
+services:
+  django-web:
+    build:
+      context: ..
+      dockerfile: local-dev/dockerfile
+    container_name: django-docker
+    volumes:
+      - ../static:/app/static
+      - ../media:/app/media
+      - ../db.sqlite3:/app/db.sqlite3
+      - ../base_static:/app/base_static
+    environment:
+      - DATABASE_ENGINE=django.db.backends.sqlite3
+      - DATABASE_NAME=db.sqlite3
+
+  frontend-proxy:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx-local.conf:/etc/nginx/nginx.conf:ro
+      - ../static:/app/static:ro
+      - ../media:/app/media:ro
+    depends_on:
+      - django-web

@@ -402,6 +402,24 @@ a {
   margin-bottom: 1rem;
 }
 
+.footer-social-links a i.fa-brands,
+.footer-social-links a .icon-ifood {
+  transition: color 0.3s, transform 0.3s;
+}
+
+.footer-social-links a:hover i.fa-brands,
+.footer-social-links a:active i.fa-brands {
+  
+  transform: translateX(4px) scale(1.1);
+}
+
+.footer-social-links a:hover .icon-ifood,
+.footer-social-links a:active .icon-ifood {
+  transform: translateX(4px) scale(1.1);
+}
+
+
+
 
 /* Messages */
 .message {
@@ -513,18 +531,28 @@ li {
   .recipe-cover img {
     height: 35rem;
   }
+
+  .logo-main,
+  .icon-ifood,
+  .fa-brands,
+  .fa-brands:focus,
+  .fa-brands:active {
+    outline: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+    
+
 }
 
 
-@media (max-width: 800px) {
-  /* Se necessário, adicione regras responsivas aqui */
-  
+@media (max-width: 700px) {
   .form-content-grid {
     grid-template-columns: 2fr;
   
   }
 
-  
 
   .recipe-list-item {
     max-width: 64rem;
@@ -542,6 +570,20 @@ li {
   .menu-options {
     display: none;
   }
+
+  .logo-main,
+  .icon-ifood,
+  .fa-brands,
+  .fa-brands:focus,
+  .fa-brands:active {
+    outline: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+    
+
+
 }
 
 /* Loader Spinner (global) */

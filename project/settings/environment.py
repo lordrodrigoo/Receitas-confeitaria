@@ -17,7 +17,7 @@ SECRET_KEY = 'django-insecure-p7t7f*uw$zfv=w#11j=@*@e7six80i60yexy7&vq0f3cikxlh@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.environ.get('DEBUG') == '1' else False
 
-ALLOWED_HOSTS = parse_comma_str_to_list(get_env_variable('ALLOWED_HOSTS'))
+ALLOWED_HOSTS = ALLOWED_HOSTS = parse_comma_str_to_list(get_env_variable('ALLOWED_HOSTS'))
 CSRF_TRUSTED_ORIGINS = parse_comma_str_to_list(get_env_variable('CSRF_TRUSTED_ORIGINS'))
 CSRS_ALLOWED_ORIGINS = parse_comma_str_to_list(get_env_variable('CORS_ALLOWED_ORIGINS'))
 

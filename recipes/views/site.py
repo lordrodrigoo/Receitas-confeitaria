@@ -9,9 +9,11 @@ from django.http import Http404
 from django.utils.translation import gettext as _
 from utils.pagination import make_pagination
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
-PER_PAGE = int(os.environ.get('PER_PAGE'))
+PER_PAGE = int(os.environ.get('PER_PAGE') or 9)
 
 
 class RecipeListViewBase(ListView):
