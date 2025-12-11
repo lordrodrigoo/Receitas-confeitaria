@@ -153,6 +153,8 @@ jobs:
 
       - name: Health check
         run: |
+          echo "🩺 Waiting for services to be ready..."
+          sleep 15
           echo "🩺 Running health check"
           if [ -n "${{ secrets.APP_URL }}" ]; then
             for i in {1..5}; do

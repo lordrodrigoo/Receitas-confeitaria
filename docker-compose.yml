@@ -5,8 +5,10 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    env_file:
-      - .env
+    environment:
+      - POSTGRES_DB=receitas
+      - POSTGRES_USER=rodrigo
+      - POSTGRES_PASSWORD=2944508
 
   django-web:
     build: .
@@ -18,7 +20,6 @@ services:
       - ./media:/app/media
     env_file:
       - .env
-    
   frontend-proxy:
     image: nginx:latest
     ports:
